@@ -1,4 +1,4 @@
-<!-- Kave Copyright Alex "Styromaniac" Goven 2018-2023; Licensed MIT https://www.mit.edu/~amini/LICENSE.md -->
+<!-- Camera-Kave Copyright Alex "Styromaniac" Goven 2018-2023; Licensed MIT https://www.mit.edu/~amini/LICENSE.md -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
