@@ -10,3 +10,7 @@ A PHP-based gallery webapp for photos and videos taken on an Android device.
 4. In that same app, add index.php to Index Pages if it isn't listed already.
 
 5. Start the server.
+
+6. Share the generated link with friends and/or family. 
+
+##Be warned that your photos and videos may end up available on the internet. This is normal behavior for server apps. Do not modify the PHP script to enable uploads without understanding the legal risks.
