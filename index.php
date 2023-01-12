@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Kave</title>
+    <title>Camera-Kave</title>
 <link rel="manifest" href="https://cdn.jsdelivr.net/gh/styromaniac/Camera-Kave@main/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="application-name" content="Kave">
-<meta name="apple-mobile-web-app-title" content="Kave">
+<meta name="application-name" content="Camera-Kave">
+<meta name="apple-mobile-web-app-title" content="Camera-Kave">
 <meta name="theme-color" content="#000000">
 <meta name="msapplication-navbutton-color" content="#000000">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
