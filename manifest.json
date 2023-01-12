@@ -9,7 +9,7 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "favicon.svg",
+      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Camera-Kave@main/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
@@ -17,7 +17,7 @@
   ],
   "screenshots": [
     {
-      "src": "index.jpg",
+      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Camera-Kave@raw/main/index.jpg",
       "sizes": "1080x2400",
       "type": "image/jpg"
     }
