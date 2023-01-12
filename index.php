@@ -1,4 +1,4 @@
-<!-- Camera-Kave Copyright Alex "Styromaniac" Goven 2018-2023; Licensed MIT https://www.mit.edu/~amini/LICENSE.md -->
+<!-- Cam Kave Copyright Alex "Styromaniac" Goven 2018-2023; Licensed MIT https://www.mit.edu/~amini/LICENSE.md -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="msapplication-starturl" content="/">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Camera-Kave@main/favicon.svg">
-<link rel="apple-touch-icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Camera-Kave@main/favicon.svg">
+<link rel="icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
+<link rel="apple-touch-icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
     <base href="./" target="_top">
     <script type="module">
       import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
