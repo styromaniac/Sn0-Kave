@@ -1,4 +1,4 @@
-# Camera-Kave
+# Cam Kave
 A PHP-based gallery webapp for photos and videos taken on an Android device.
 
 1. Download the index.php file and move it into the DCIM folder (/storage/emulated/0/DCIM).
