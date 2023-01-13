@@ -13,4 +13,4 @@ A PHP-based gallery webapp for photos and videos taken on an Android device.
 
 6. Share the generated link with friends and/or family on the same LAN (local area network)
 
-## Be warned that your photos and videos may end up publicly available on the internet. This is normal behavior for server apps. If you put robots.txt into the DCIM folder, this will prevent search engines indexing the webapp on your Android device. Do not modify the PHP script to enable uploads without understanding the legal risks.
+## Be warned that your photos and videos may end up publicly available on the internet. This is normal behavior for server apps. If you put robots.txt into the DCIM folder, this will prevent search engines from indexing the webapp on your Android device. Do not modify the PHP script to enable uploads without understanding the legal risks.
