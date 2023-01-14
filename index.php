@@ -210,7 +210,7 @@ video::-webkit-media-controls-panel {
         <?php
 
 // Define where we want to look for files.
-$searchPath = './Camera/';
+$searchPath = 'Camera/';
 
 // Get a list of everything in our search path
 $files = scandir($searchPath);
@@ -222,7 +222,8 @@ foreach($files as $file){
     if (strpos($file, '.jpg') !== false) {
 
         // Add the img tag
-        echo '<img data-media="image" src="'.$searchPath.$file.'?v=1"/>';
+        echo '  <img data-media="image" src="'.$searchPath.$file.'?v=1"/>
+        ';
 
     }
 
@@ -230,13 +231,13 @@ foreach($files as $file){
     if (strpos($file, '.mp4') !== false) {
 
         // Add the video tag
-        echo '<video data-media="video" src="'.$searchPath.$file.'?v=1"></video>';
+        echo '  <video data-media="video" src="'.$searchPath.$file.'?v=1"></video>
+        ';
 
     }
 
 }
 ?>
-	<br>
           <div id="lightbox">
             <div id="bar">
               <a oncontextmenu="toggleFullScreen()" onclick="window.closeLightbox()">
