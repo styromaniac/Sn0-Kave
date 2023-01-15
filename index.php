@@ -3,7 +3,6 @@
 <html lang="en">
   <head>
     <title>Cam Kave</title>
-<link rel="manifest" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="application-name" content="Cam Kave">
@@ -15,6 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
 <link rel="apple-touch-icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
+<link rel="manifest" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
     <base href="./" target="_top">
     <script type="module">
       import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
@@ -173,6 +173,10 @@ html {
 
 video::-webkit-media-controls-panel {
     background-image: linear-gradient(transparent,transparent)!important
+}
+
+#content {
+	backdrop-filter: blur(7px)
 }
 
 #lightbox {
