@@ -15,7 +15,7 @@
     <link rel="icon" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.ico" type="image/x-icon" />
     <link rel="icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
     <link rel="apple-touch-icon" type="image/svg+xml" sizes="any" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg">
-    <link rel="manifest" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
+    <link rel="manifest" application/manifest+json href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json" />
     <base href="./" target="_top">
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
