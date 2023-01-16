@@ -168,7 +168,7 @@
         html {
             backface-visibility: hidden;
             transform: translate3D(0,0,0);
-            width: 100%,
+            width: 100%
         }
 
         video::-webkit-media-controls-panel {
