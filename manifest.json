@@ -10,7 +10,7 @@
   "icons": [
     {
       "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
-      "sizes": "2011x1905",
+      "sizes": "2011x2011",
       "type": "image/png",
       "purpose": "maskable"
     }
