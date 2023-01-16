@@ -9,16 +9,16 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
-      "sizes": "2011x1905",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
       "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
+      "sizes": "2011x1905",
+      "type": "image/png",
+      "purpose": "any"
     }
   ],
   "screenshots": [
