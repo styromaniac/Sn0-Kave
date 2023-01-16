@@ -13,6 +13,12 @@
       "sizes": "2011x1905",
       "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.svg",
+      "sizes": "2011x1905",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
