@@ -227,7 +227,7 @@
                     if (strpos($file, '.jpg') !== false) {
 
                         // Add the img tag
-                        echo '                <img data-media="image" src="'.$searchPath.$file.'"/>
+                        echo '                <img data-media="image" type="image/jpg" src="'.$searchPath.$file.'"/>
 ';
 
                     }
@@ -236,7 +236,7 @@
                     if (strpos($file, '.mp4') !== false) {
 
                         // Add the video tag
-                        echo '                <video data-media="video" src="'.$searchPath.$file.'"></video>
+                        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
 ';
 
                     }
@@ -316,7 +316,7 @@
             }
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js">
     </script>
 </body>
 </html>
