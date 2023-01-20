@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
-    <link rel="manifest" application/manifest+json href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json" />
+    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json" />
     <base href="./" target="_top">
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
@@ -154,6 +154,7 @@
 
         body {
             background: radial-gradient(#124,#000) center no-repeat,#000;
+            overscroll-behavior:none;
             margin: 0
         }
 
@@ -226,7 +227,7 @@
                     if (strpos($file, '.jpg') !== false) {
 
                         // Add the img tag
-                        echo '                <img data-media="image" src="'.$searchPath.$file.'?v=1"/>
+                        echo '                <img data-media="image" src="'.$searchPath.$file.'"/>
 ';
 
                     }
@@ -235,7 +236,7 @@
                     if (strpos($file, '.mp4') !== false) {
 
                         // Add the video tag
-                        echo '                <video data-media="video" src="'.$searchPath.$file.'?v=1"></video>
+                        echo '                <video data-media="video" src="'.$searchPath.$file.'"></video>
 ';
 
                     }
@@ -254,7 +255,7 @@
         </div>
     </div>
     <div id="bar">
-        <a href="./" oncontextmenu="toggleFullScreen()">
+        <a onClick="window.location.href=window.location.href" oncontextmenu="toggleFullScreen()">
             <span id="bat" />
         </a>
     </div>
@@ -315,26 +316,7 @@
             }
         }
     </script>
-    <script>
-        // Check if service workers are supported
-        if ('serviceWorker' in navigator) {
-            const registration = await navigator.serviceWorker.ready;
-            // Check if periodicSync is supported
-            if ('periodicSync' in registration) {
-                // Request permission
-                const status = await navigator.permissions.query({
-                    name: 'periodic-background-sync',
-                }); if (status.state === 'granted') {
-                    try {
-                        // Register new sync every 24 hours
-                        await registration.periodicSync.register('news', {
-                            minInterval: 24 * 60 * 60 * 1000, // 1 day        });        console.log('Periodic background sync registered!');
-                        } catch(e) {
-                            console.error(`Periodic background sync failed:\n${e}`);
-                        }
-                        }
-                    }
-                }
+    <script src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js">
     </script>
 </body>
 </html>
