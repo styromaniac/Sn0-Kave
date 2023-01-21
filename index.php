@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
-    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json" />
+    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
     <base href="./" target="_top">
     <script type="module">
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
@@ -78,10 +78,6 @@
             margin: 12px 0
         }
 
-        #media a,#media img,#media video {
-            font-size: 0
-        }
-
         #media img,#media video {
             top: 45px;
             border: 1px solid #000;
@@ -113,10 +109,11 @@
         }
 
         #MIT {
-            border: none!important;
-            outline: none!important;
-            height: 16px!important;
-            width: auto!important
+            display: none
+        }
+        
+        .text:hover > #MIT {
+        	display: inline-block
         }
 
         .overlay {
@@ -133,7 +130,7 @@
         }
 
         .text img {
-            height: 20px
+            height: 20px!important
         }
 
         *,.text,a {
@@ -227,7 +224,7 @@
                     if (strpos($file, '.jpg') !== false) {
 
                         // Add the img tag
-                        echo '                <img data-media="image" type="image/jpg" src="'.$searchPath.$file.'"/>
+                        echo '                <img data-media="image" type="image/jpg" src="'.$searchPath.$file.'">
 ';
 
                     }
@@ -243,10 +240,29 @@
 
                 }
                 ?>
+                	</span>
+                	<br>
+                	<span class="text">
+                	<?php echo "Last synced: " . date ("F d Y H:i:s", getlastmod()); ?>  UTC.
+                	<br>
+                	<?php echo "Kave Copyright &copy 2018-".date ("Y", getlastmod()); ?> Alex Goven
+                    <br>
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLXphei0tPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgaGVpZ2h0PSIxNjYiIHdpZHRoPSIzMjEiPgo8ZyBzdHJva2Utd2lkdGg9IjM1IiBzdHJva2U9IiNBMzFGMzQiPgo8cGF0aCBkPSJtMTcuNSwwdjE2Nm01Ny0xNjZ2MTEzbTU3LTExM3YxNjZtNTctMTY2djMzbTU4LDIwdjExMyIvPgo8cGF0aCBkPSJtMTg4LjUsNTN2MTEzIiBzdHJva2U9IiM4QThCOEMiLz4KPHBhdGggZD0ibTIyOSwxNi41aDkyIiBzdHJva2Utd2lkdGg9IjMzIi8+CjwvZz4KPC9zdmc+Cg==">
+                    <br>
+<div id="MIT">
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+<br>
+<br>
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</div>
+                	</span>
                 <div id="lightbox">
                     <div id="bar">
                         <a oncontextmenu="toggleFullScreen()" onclick="window.closeLightbox()">
-                            <span id="bat" />
+                            <span id="bat">
                         </a>
                     </div>
                     <div id="content"></div>
@@ -256,7 +272,7 @@
     </div>
     <div id="bar">
         <a onClick="window.location.href=window.location.href" oncontextmenu="toggleFullScreen()">
-            <span id="bat" />
+            <span id="bat">
         </a>
     </div>
     <script>
