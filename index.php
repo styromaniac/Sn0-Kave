@@ -23,9 +23,17 @@
     </script>
 
     <style>
+ @media (pointer: fine) {
+        ::-webkit-scrollbar {
+            width: 8px
+        }
+    }
+
+ @media (pointer: coarse) {
         ::-webkit-scrollbar {
             width: 0px
         }
+    }
 
         ::-webkit-scrollbar-track {
             background: 0 0
