@@ -128,7 +128,8 @@
          }
 
         .overlay {
-            will-change: scroll-position
+            will-change: scroll-position;
+            box-shadow: inset 0 0 7px 7px #000
         }
 
         .copyright, .text {
@@ -285,41 +286,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </a>
     </div>
     <script>
-        const lightboxElem = document.getElementById("lightbox");
-        const contentElem = document.getElementById("content");
-
-        function openLightbox(src, type) {
-            lightboxElem.style.display = 'block';
-
-            let element;
-            if (type === 'image') {
-                element = document.createElement("img");
-            } else if (type === 'video') {
-                element = document.createElement("video");
-            }
-
-            element.src = src;
-            element.controls = true;
-            element.autoplay = true;
-
-            contentElem.appendChild(element);
-        }
-
-        const elements = document.querySelectorAll("[data-media]");
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].onclick = function(e) {
-                let src = e.target.src;
-                let type = e.target.dataset.media;
-                openLightbox(src, type);
-            };
-        }
-
-        function closeLightbox() {
-            //Clear content element and hide the lightbox
-            contentElem.innerHTML = '';
-            lightboxElem.style.display = 'none';
-        }
-
+if (location.protocol === "https:" && window.top === window.self) {
+  // load WebTorrentLightbox.js
+  var script1 = document.createElement('script');
+  script1.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/WebTorrentLightbox.js';
+  document.getElementsByTagName('head')[0].appendChild(script1);
+  // load sw.js
+  var script2 = document.createElement('script');
+  script2.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js';
+  document.getElementsByTagName('head')[0].appendChild(script2);
+  // load webtorrent.min.js
+  var script3 = document.createElement('script');
+  script3.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/webtorrent.min.js';
+  document.getElementsByTagName('head')[0].appendChild(script3);
+} else {
+  // load Lightbox.js
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js';
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+    </script>
+    <script>
         function toggleFullScreen() {
             if ((document.fullScreenElement && document.fullScreenElement !== null) ||
                 (!document.mozFullScreen && !document.webkitIsFullScreen)) {
