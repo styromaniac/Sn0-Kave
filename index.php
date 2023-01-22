@@ -306,37 +306,9 @@ if (location.protocol === "https:" && window.top === window.self) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
     </script>
-    <script>
-        function toggleFullScreen() {
-            if ((document.fullScreenElement && document.fullScreenElement !== null) ||
-                (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-                if (document.documentElement.requestFullScreen) {
-                    document.documentElement.requestFullScreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullScreen) {
-                    document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
-                }
-            }
-        }
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js">
     </script>
-<script>
-  var copyright = document.querySelector(".copyright");
-  var mit = document.querySelector("#MIT");
-
-  copyright.addEventListener("click", function() {
-    mit.classList.toggle("visible");
-  });
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js">
 </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js">
-    </script>
 </body>
 </html>
