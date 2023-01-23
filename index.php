@@ -17,10 +17,13 @@
     <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
     <base href="./" target="_top">
     <script type="module">
+    if (location.protocol === "https:" && window.top === window.self) {
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
+    }
     </script>
+
 
     <style>
  @media (pointer: fine) {
@@ -286,25 +289,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </a>
     </div>
     <script>
-if (location.protocol === "https:" && window.top === window.self) {
-  // load WebTorrentLightbox.js
-  var script1 = document.createElement('script');
-  script1.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/WebTorrentLightbox.js';
-  document.getElementsByTagName('head')[0].appendChild(script1);
-  // load sw.js
-  var script2 = document.createElement('script');
-  script2.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js';
-  document.getElementsByTagName('head')[0].appendChild(script2);
-  // load webtorrent.min.js
-  var script3 = document.createElement('script');
-  script3.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/webtorrent.min.js';
-  document.getElementsByTagName('head')[0].appendChild(script3);
-} else {
-  // load Lightbox.js
-  var script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js';
-  document.getElementsByTagName('head')[0].appendChild(script);
+if (window.location.protocol === "https:" && window.self === window.top) {
+  var script = document.createElement("script");
+  script.src = "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js";
+  document.head.appendChild(script);
 }
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js">
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js">
     </script>
