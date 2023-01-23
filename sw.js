@@ -34,6 +34,7 @@ self.addEventListener('fetch', function(event) {
     );
   }
 });
+
 // open indexedDB
 var dbPromise = idb.open('webtorrent-cache', 1, function(upgradeDb) {
   var store = upgradeDb.createObjectStore('webtorrent-cache', {
@@ -75,3 +76,26 @@ dbPromise.then(function(db) {
   store.clear();
   return tx.complete;
 });
+
+// select all <img> and <video> tags in the index.html file
+var imageTags = document.getElementsByTagName('img');
+var videoTags = document.getElementsByTagName('video');
+
+// extract the URLs of the embedded files
+var urls = [];
+for (var i = 0; i < imageTags.length; i++) {
+  urls.push(imageTags[i].src);
+}
+for (var i = 0; i < videoTags.length; i++) {
+  urls.push(videoTags[i].src);
+}
+
+// create a WebTorrent client
+var client = new WebTorrent();
+
+// add each file to the client and cache them using the webseed
+for (var i = 0; i < urls.length; i++) {
+  client.add(urls[i], { webSeedUrls: ['https://kave.styromaniac.com/Camera/'] }, function (torrent) {
+    // do something with the torrent
+  });
+}
