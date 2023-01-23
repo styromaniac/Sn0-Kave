@@ -16,14 +16,17 @@
     <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
     <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
     <base href="./" target="_top">
-    <script type="module">
+
+    <script>
     if (location.protocol === "https:" && window.top === window.self) {
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
+        var script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js";
+        document.head.appendChild(script);
     }
     </script>
-
 
     <style>
  @media (pointer: fine) {
@@ -288,18 +291,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <span id="bat">
         </a>
     </div>
-    <script>
-if (window.location.protocol === "https:" && window.self === window.top) {
-  var script = document.createElement("script");
-  script.src = "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js";
-  document.head.appendChild(script);
-}
-    </script>
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js">
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js">
     </script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js">
 </script>
+
 </body>
 </html>
