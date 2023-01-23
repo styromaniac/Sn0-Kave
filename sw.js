@@ -1,91 +1,78 @@
-let db;
-const request = indexedDB.open("torrentCache", 1);
-
-request.onupgradeneeded = function (event) {
-    db = event.target.result;
-    const objectStore = db.createObjectStore("torrents", {keyPath: "infoHash"});
-};
-self.addEventListener("install", (event) => {
-    event.waitUntil(
-        caches.open("torrentCache").then(function (cache) {
-            return cache.addAll([
-                "./Camera/*.jpg",
-                "./Camera/*.mp4"
-            ]);
-        }).then(() => {
-            var cameraDir = './Camera'
-            window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-            window.requestFileSystem(window.TEMPORARY, 10*1024*1024*1024, function(fs){
-                fs.root.getDirectory(cameraDir, {}, function(dirEntry){
-                    var dirReader = dirEntry.createReader();
-                    dirReader.readEntries(function(entries) {
-                        entries.forEach(function(entry) {
-                            var filePath = entry.fullPath
-                            if (filePath.endsWith('.jpg') || filePath.endsWith('.mp4')) {
-                                client.seed(filePath, function (torrent) {
-                                    console.log(`Seeding ${filePath} as torrent ${torrent.infoHash}`)
-                                    //save the torrent to the indexedDB cache
-                                    const transaction = db.transaction(["torrents"], "readwrite");
-                                    const objectStore = transaction.objectStore("torrents");
-                                    objectStore.put({infoHash: torrent.infoHash, torrent: torrent});
-                                })
-                            }
-                        })
-                    });
-                });
-            });
-        })
-    );
+// register the service worker
+navigator.serviceWorker.register('/sw.js')
+.then(function(registration) {
+  console.log('Service worker registered:', registration);
+})
+.catch(function(error) {
+  console.log('Service worker registration failed:', error);
 });
-self.addEventListener("fetch", (event) => {
+
+// background sync function
+function sync() {
+  navigator.serviceWorker.ready.then(function(registration) {
+    return registration.sync.register('webtorrent-sync');
+  });
+}
+
+// schedule sync to run every 24 hours
+setInterval(sync, 86400000);
+self.addEventListener('fetch', function(event) {
+  // only intercept requests for jpg and mp4 files in the Camera directory
+  if (event.request.url.includes('/Camera/') && (event.request.url.endsWith('.jpg') || event.request.url.endsWith('.mp4'))) {
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            if (response) {
-                return response;
-            } else {
-                return fetch(event.request).then((response) => {
-                    if (!response || response.status !== 200 || response.type !== "basic") {
-                        return response;
-                    }
-
-                    const responseToCache = response.clone();
-                    caches.open("torrentCache").then((cache) => {
-                        cache.put(event.request, responseToCache);
-                    });
-                    return response;
-                });
-            }
-        })
+      webtorrent.getInfoHash(event.request.url)
+      .then(function(infoHash) {
+        // cache the file using the info hash as the key
+        return caches.open('webtorrent-cache').then(function(cache) {
+          return cache.put(infoHash, event.response);
+        });
+      })
+      .catch(function(error) {
+        console.log('Error generating info hash:', error);
+        return event.response;
+      })
     );
+  }
 });
-self.addEventListener("activate", (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== "torrentCache") {
-                        return caches.delete(cacheName);
-                    }
-                })
-            );
-        })
-    );
+// open indexedDB
+var dbPromise = idb.open('webtorrent-cache', 1, function(upgradeDb) {
+  var store = upgradeDb.createObjectStore('webtorrent-cache', {
+    keyPath: 'infoHash'
+  });
 });
 
-const syncTag = "torrent-sync";
+// add a file to the indexedDB cache
+function addToCache(infoHash, file) {
+  dbPromise.then(function(db) {
+    var tx = db.transaction('webtorrent-cache', 'readwrite');
+    var store = tx.objectStore('webtorrent-cache');
+    store.put({infoHash: infoHash, file: file});
+    return tx.complete;
+  });
+}
 
-self.addEventListener("sync", (event) => {
-    if (event.tag === syncTag) {
-        event.waitUntil(
-            // Perform background sync here
-        );
+// check if the indexedDB cache has reached the 10GB limit
+function cacheSize() {
+  var size = 0;
+  dbPromise.then(function(db) {
+    var tx = db.transaction('webtorrent-cache');
+    var store = tx.objectStore('webtorrent-cache');
+    return store.count();
+  }).then(function(count) {
+    size += count;
+    if (size >= 10000000) {
+      // clear the cache if the limit is reached
+      clearCache();
     }
-});
+  });
+}
 
-self.addEventListener("activate", (event) => {
-    event.waitUntil(
-        self.registration.sync.register(syncTag).then(() => {
-            console.log("Background sync registered");
-        })
-    );
+// clear the indexedDB cache
+function clearCache() {
+ 
+dbPromise.then(function(db) {
+  var tx = db.transaction('webtorrent-cache', 'readwrite');
+  var store = tx.objectStore('webtorrent-cache');
+  store.clear();
+  return tx.complete;
 });
