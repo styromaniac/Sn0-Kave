@@ -4,21 +4,40 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
-  // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(cache => {
       console.log('Opened cache');
       return cache.addAll(urlsToCache);
+    }).then(() => {
+        var cameraDir = './Camera'
+    window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+    window.requestFileSystem(window.TEMPORARY, 1024*1024, function(fs){
+        fs.root.getDirectory(cameraDir, {}, function(dirEntry){
+            var dirReader = dirEntry.createReader();
+            dirReader.readEntries(function(entries) {
+                entries.forEach(function(entry) {
+                    var filePath = entry.fullPath
+                    if (filePath.endsWith('.jpg') || filePath.endsWith('.mp4')) {
+                        client.seed(filePath, function (torrent) {
+                            console.log(`Seeding ${filePath} as torrent ${torrent.infoHash}`)
+                            //save the torrent to the PWA cache
+                            caches.open(CACHE_NAME).then(function(cache) {
+                                cache.put(filePath, new Response(torrent))
+                            });
+                        })
+                    }
+                })
+            });
+        });
+    });
     })
   );
 });
-
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
     .then(response => {
-      // Cache hit - return response
       if (response) {
         return response;
       }
@@ -70,4 +89,3 @@ self.addEventListener('activate', event => {
     })
   );
 });
-
