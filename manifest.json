@@ -9,8 +9,8 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
-      "sizes": "1536x1536",
+      "src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/maskable_icon_x512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }
