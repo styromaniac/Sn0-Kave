@@ -69,7 +69,6 @@ function cacheSize() {
 
 // clear the indexedDB cache
 function clearCache() {
- 
 dbPromise.then(function(db) {
   var tx = db.transaction('webtorrent-cache', 'readwrite');
   var store = tx.objectStore('webtorrent-cache');
