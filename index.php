@@ -235,7 +235,7 @@
                     if (strpos($file, '.jpg') !== false) {
 
                         // Add the img tag
-                        echo '                <img data-media="image" type="image/jpg" src="'.$searchPath.$file.'">
+                        echo '                <img loading="lazy" data-media="image" type="image/jpg" src="'.$searchPath.$file.'">
 ';
 
                     }
@@ -244,7 +244,7 @@
                     if (strpos($file, '.mp4') !== false) {
 
                         // Add the video tag
-                        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
+                        echo '                <video preload="auto" data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
 ';
 
                     }
