@@ -17,16 +17,13 @@
     <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
     <base href="./" target="_top">
 
-    <script>
-    if (location.protocol === "https:" && window.top === window.self) {
-        import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-        const el = document.createElement('pwa-update');
-        document.body.appendChild(el);
-        var script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/sw.js";
-        document.head.appendChild(script);
-    }
-    </script>
+<script>
+  if (location.protocol === "https:" && window.top === window) {
+    var KaveTorrentScript = document.createElement("script");
+    KaveTorrentScript.src = "KaveTorrent.js";
+    document.head.appendChild(KaveTorrentScript);
+  }
+</script>
 
     <style>
  @media (pointer: fine) {
@@ -219,7 +216,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
     <div class="overlay">
         <div id="list">
             <span id="media">
@@ -281,7 +278,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                             <span id="bat">
                         </a>
                     </div>
-                    <div id="content"></div>
+                    <div id="content">
+                    </div>
                 </div>
             </span>
         </div>
@@ -297,7 +295,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js">
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js">
-</script>
+    </script>
 
 </body>
 </html>
