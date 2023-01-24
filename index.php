@@ -244,7 +244,7 @@
                     if (strpos($file, '.mp4') !== false) {
 
                         // Add the video tag
-                        echo '                <video preload="auto" data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
+                        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
 ';
 
                     }
