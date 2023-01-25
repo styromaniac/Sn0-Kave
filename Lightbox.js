@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', function() {
 const lightboxElem = document.getElementById("lightbox");
 const contentElem = document.getElementById("content");
 let player;
@@ -35,3 +36,4 @@ function closeLightbox() {
     contentElem.innerHTML = '';
     lightboxElem.style.display = 'none';
 }
+}, false);
