@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
     <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
     <base href="./" target="_top">
 
 <script>
@@ -26,6 +27,11 @@
 </script>
 
     <style>
+       .plyr {
+	    height: 100%;
+        --plyr-video-background:none
+        }
+
  @media (pointer: fine) {
         ::-webkit-scrollbar {
             width: 8px
@@ -89,6 +95,10 @@
             margin: 12px 0
         }
 
+        #media {
+            height:100%;
+        }
+
         #media img,#media video {
             top: 45px;
             border: 1px solid #000;
@@ -149,8 +159,7 @@
         }
 
         * {
-        	user-select: none;
-            height: 100%;
+            user-select: none;
             -webkit-tap-highlight-color: transparent
         }
 
@@ -164,6 +173,7 @@
         body {
             background: radial-gradient(#124,#000) center no-repeat,#000;
             overscroll-behavior:none;
+            height:100%;
             margin: 0
         }
 
@@ -178,7 +188,7 @@
         html {
             backface-visibility: hidden;
             transform: translate3D(0,0,0);
-            width: 100%
+            height:100%;
         }
 
         video::-webkit-media-controls-panel {
@@ -186,6 +196,7 @@
         }
 
         #content {
+            height: 100%;
             backdrop-filter: blur(7px)brightness(50%);
         }
 
@@ -289,13 +300,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             <span id="bat">
         </a>
     </div>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js">
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js">
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js">
-    </script>
+    <script src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js"></script>
 
 </body>
 </html>
