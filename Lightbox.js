@@ -1,6 +1,8 @@
-const lightboxElem = document.getElementById("lightbox");
-const contentElem = document.getElementById("content");
 let player;
+
+function initPlyr() {
+    player = new Plyr(element);
+}
 
 function openLightbox(src, type) {
     lightboxElem.style.display = 'block';
@@ -17,7 +19,7 @@ function openLightbox(src, type) {
     element.autoplay = true;
 
     contentElem.appendChild(element);
-    player = new Plyr(element); // Initialize plyr
+    initPlyr();
 }
 
 const elements = document.querySelectorAll("[data-media]");
@@ -30,8 +32,7 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 function closeLightbox() {
-    player.destroy(); // destroy the plyr player
-    //Clear content element and hide the lightbox
+    player.destroy();
     contentElem.innerHTML = '';
     lightboxElem.style.display = 'none';
 }
