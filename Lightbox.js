@@ -1,7 +1,6 @@
+const lightboxElem = document.getElementById("lightbox");
 const contentElem = document.getElementById("content");
 let player;
-const lightboxElement = document.getElementById("lightbox");
-
 const elements = document.querySelectorAll("[data-media]");
 
 for (let i = 0; i < elements.length; i++) {
@@ -15,7 +14,7 @@ for (let i = 0; i < elements.length; i++) {
 function openLightbox(src, type) {
     lightboxElem.style.display = 'block';    
 
-    let element;const lightboxElem = document.getElementById("lightbox");
+    let element;
     if (type === 'image') {
         element = document.createElement("img");
     } else if (type === 'video') {
