@@ -12,29 +12,27 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 function openLightbox(src, type) {
-    lightboxElem.style.display = 'block';
-    let bgMediaElem = document.getElementById("bg-media");
-    
-    if (type === 'image') {
-        bgMediaElem.style.backgroundImage = `url(${src})`;
-    } else if (type === 'video') {
-        let element = document.createElement("video");
-        element.src = src;
-        element.id = "media-player";
-        element.controls = true;
-        element.autoplay = true;
+    lightboxElem.style.display = 'block';    
 
-        bgMediaElem.appendChild(element);
-        player = new Plyr(element);
+    let element;
+    if (type === 'image') {
+        element = document.createElement("img");
+    } else if (type === 'video') {
+        element = document.createElement("video");
     }
+
+    element.src = src;
+    element.controls = true;
+    element.autoplay = true;
+
+    contentElem.appendChild(element);
+    player = new Plyr(element);
 }
 
 function closeLightbox() {
     if (player) {
         player.destroy();
     }
-    let bgMediaElem = document.getElementById("bg-media");
-    bgMediaElem.style.backgroundImage = "";
-    bgMediaElem.innerHTML = "";
+    contentElem.innerHTML = '';
     lightboxElem.style.display = 'none';
 }
