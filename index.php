@@ -12,11 +12,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
-    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">    
-    <script src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
+    <link rel="icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png?v=1">
+    <link rel="apple-touch-icon" type="image/png" sizes="1536x1536" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png?v=1">
+    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json?v=1">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css?v=1" />
+    <script async src="https://cdn.plyr.io/3.7.3/plyr.js?v=1"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
     <base href="./" target="_top">
 
     <style>
@@ -280,7 +281,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 <div id="lightbox">
                     <div class="bar">
                         <a oncontextmenu="toggleFullScreen()" onclick="window.closeLightbox()">
-                            <span class="bat">
+                            <span class="bat"></span>
                         </a>
                     </div>
                     <div id="content">
@@ -295,9 +296,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </a>
     </div>
 
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Viewplayer.js?v=1"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js?v=1"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js?v=1"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js?v=1"></script>
 
 </body>
 </html>
