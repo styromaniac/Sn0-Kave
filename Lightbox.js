@@ -12,29 +12,29 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 function openLightbox(src, type) {
-    lightboxElem.style.display = 'block';    
-
-    let element;
+    lightboxElem.style.display = 'block';
+    let bgMediaElem = document.getElementById("bg-media");
+    
     if (type === 'image') {
-        element = document.createElement("img");
+        bgMediaElem.style.backgroundImage = `url(${src})`;
     } else if (type === 'video') {
-        element = document.createElement("video");
+        let element = document.createElement("video");
+        element.src = src;
+        element.id = "media-player";
+        element.controls = true;
+        element.autoplay = true;
+
+        bgMediaElem.appendChild(element);
+        player = new Plyr(element);
     }
-
-    element.src = src;
-    element.controls = true;
-    element.autoplay = true;
-    element.id = "bg-media-element";
-
-    contentElem.appendChild(element);
-    contentElem.style.backgroundImage = `url(${src})`;
-    player = new Plyr(element);
 }
 
 function closeLightbox() {
     if (player) {
         player.destroy();
     }
-    contentElem.innerHTML = '';
+    let bgMediaElem = document.getElementById("bg-media");
+    bgMediaElem.style.backgroundImage = "";
+    bgMediaElem.innerHTML = "";
     lightboxElem.style.display = 'none';
 }
