@@ -22,6 +22,7 @@ function openLightbox(src, type) {
     }
 
     element.src = src;
+    element.id = bg-video;
     element.controls = true;
     element.autoplay = true;
 
