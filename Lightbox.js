@@ -27,6 +27,7 @@ function openLightbox(src, type) {
     element.autoplay = true;
 
     contentElem.appendChild(element);
+    contentElem.style.backgroundImage = `url(${src})`;
     player = new Plyr(element);
 }
 
