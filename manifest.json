@@ -7,9 +7,9 @@
 	"lang": "en-US",
 	"display": "standalone",
 	"icons": [{
-		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/BlueBat.svg",
-		"sizes": "1536x998",
-		"type": "image/svg+xml",
+		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
+		"sizes": "1536x1536",
+		"type": "image/png",
 		"purpose": "any"
 	}],
 	"screenshots": [{
