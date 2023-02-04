@@ -3,5 +3,9 @@
 
   copyright.addEventListener("click", function() {
     mit.classList.toggle("visible");
-    window.scrollTo(0, document.body.scrollHeight);
+    mit.addEventListener("transitionend", function() {
+      setTimeout(function() {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 100);
+    });
   });
