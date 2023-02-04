@@ -1,30 +1,69 @@
-self.addEventListener("fetch", function (event) {
-  event.respondWith(
-    caches.open("site-cache").then(function (cache) {
-      return cache.match(event.request).then(function (response) {
-        if (response) {
-          return response;
-        }
+// Set a constant for the cache name
+const CACHE_NAME = 'webtorrent-cache-v1';
 
-        return fetch(event.request).then(function (response) {
-          cache.put(event.request, response.clone());
-          return response;
-        });
-      });
+// Listen for the install event
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+    .then(cache => {
+      return cache.addAll([
+        '/',
+        '/index.html'
+      ]);
     })
   );
 });
 
-self.addEventListener('sync', function (event) {
-  if (event.tag === '24hr-sync') {
-    event.waitUntil(
-      caches.open(CACHE_NAME).then(function (cache) {
-        return cache.addAll(urlsToCache);
-      })
-    );
-  }
+// Listen for the fetch event
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+    .then(response => {
+      // If the response is in the cache, return it
+      if (response) return response;
+  
+      // Otherwise, fetch the response from the network
+      return fetch(event.request)
+        .then(networkResponse => {
+          // If the request is successful, add the response to the cache
+          if (networkResponse.status === 200) {
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, networkResponse.clone());
+              });
+          }
+  
+          return networkResponse;
+        });
+    })
+  );
 });
 
-// Schedule the background sync to run every 24 hours
-self.registration.sync.register('24hr-sync');
-setInterval(() => self.registration.sync.register('24hr-sync'), 24 * 60 * 60 * 1000);
+// Listen for the activate event
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+    .then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          // If the cache name does not match the current cache, delete it
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
+// Schedule a background sync to update the cache every 24 hours
+const syncInterval = 24 * 60 * 60 * 1000;
+setInterval(() => {
+  self.registration.sync.register('webtorrent-cache-update')
+    .then(() => {
+      console.log('WebTorrent cache updated');
+    })
+    .catch(error => {
+      console.error('WebTorrent cache update failed:', error);
+    });
+}, syncInterval);
