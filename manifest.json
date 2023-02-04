@@ -3,12 +3,12 @@
 	"description": "Tunnel in.",
 	"theme_color": "#000000",
 	"background_color": "#000000",
-	"start_url": "/",
+	"start_url": "https://kave.styromaniac.com",
 	"lang": "en-US",
 	"display": "standalone",
 	"icons": [{
-		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
-		"sizes": "1536x1536",
+		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/BlueBat.svg",
+		"sizes": "1536x998",
 		"type": "image/png",
 		"purpose": "any"
 	}],
