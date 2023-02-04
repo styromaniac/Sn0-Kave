@@ -1,4 +1,4 @@
-let videos = document.querySelectorAll("video");
+let lazyVideos = document.querySelectorAll("video");
 
 function handleIntersection(entries, observer) {
   entries.forEach(entry => {
@@ -13,7 +13,7 @@ function handleIntersection(entries, observer) {
 
 let observer = new IntersectionObserver(handleIntersection);
 
-videos.forEach(video => {
+lazyVideos.forEach(video => {
   video.muted = true;
   video.loop = true;
   observer.observe(video);
