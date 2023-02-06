@@ -9,7 +9,6 @@ document.querySelectorAll("img[data-magnet], video[data-magnet]").forEach(functi
       caches.open('torrent-cache')
         .then(cache => cache.addAll(torrent.files.map(file => file.getBlobURL())))
         .then(() => client.seed(torrent.files));
-      element.style.outline = "green solid 4px";
     });
   });
 });
