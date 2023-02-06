@@ -9,7 +9,7 @@
 	"icons": [{
 		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.webp",
 		"sizes": "7680x7680",
-		"type": "image/png",
+		"type": "image/webp",
 		"purpose": "any"
 	}],
 	"screenshots": [{
