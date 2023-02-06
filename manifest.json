@@ -3,7 +3,7 @@
 	"description": "Tunnel in.",
 	"theme_color": "#000000",
 	"background_color": "#000000",
-	"start_url": "https://kave.styromaniac.com",
+	"start_url": "/",
 	"lang": "en-US",
 	"display": "standalone",
 	"icons": [{
