@@ -7,8 +7,8 @@
 	"lang": "en-US",
 	"display": "standalone",
 	"icons": [{
-		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png",
-		"sizes": "1536x1536",
+		"src": "https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.webp",
+		"sizes": "7680x7680",
 		"type": "image/png",
 		"purpose": "any"
 	}],
