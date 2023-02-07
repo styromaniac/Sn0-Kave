@@ -13,18 +13,18 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/webp" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/favicon.webp">
-    <link rel="apple-touch-icon" type="image/webp" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/favicon.webp">
-    <link rel="icon" type="image/png" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/favicon.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/favicon.png">
-    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/manifest.json">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/Kave.css" />
+    <link rel="icon" type="image/webp" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.webp">
+    <link rel="apple-touch-icon" type="image/webp" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.webp">
+    <link rel="icon" type="image/png" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="7680x7680" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/favicon.png">
+    <link rel="manifest" type="application/manifest+json" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/manifest.json">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Kave.css" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
     <script async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
     <base href="./" target="_top">
 
     <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
-    <script async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/KaveTorrent.js"></script>
+    <script async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/KaveTorrent.js"></script>
 
 </head>
 
@@ -72,7 +72,7 @@
                 	<span class="copyright">
                 	<?php echo "Kave &copy 2018-".date ("Y", getlastmod()); ?> Alex "Styromaniac" Goven
                     <br>
-                    <img src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/MIT.svg">
+                    <img src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/MIT.svg">
                     <br>
 <div id="MIT" class="transition hide">
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -102,10 +102,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </a>
     </div>
 
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/Viewplayer.js"></script>
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/Fullscreen.js"></script>
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/Copyright.js"></script>
-    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@latest/Lightbox.js"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Viewplayer.js"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Fullscreen.js"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Copyright.js"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/gh/styromaniac/Cam-Kave@main/Lightbox.js"></script>
 
 </body>
 </html>
