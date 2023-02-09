@@ -20,11 +20,10 @@
     <link rel="manifest" type="application/manifest+json" href="dep/manifest.json">
     <link rel="stylesheet" href="dep/Kave.css" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
-    <script async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+    <script type="text/javascript" src="dep/KaveTorrent.js"></script>
     <base href="./" target="_top">
-
-    <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
-    <script src="dep/KaveTorrent.js"></script>
 
 </head>
 
