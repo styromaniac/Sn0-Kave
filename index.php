@@ -34,7 +34,7 @@
 <?php
 
                 // Define where we want to look for files.
-                $searchPath = 'Camera/';
+                $searchPath = 'OpenCamera/';
 
                 // Get a list of everything in our search path
                 $files = scandir($searchPath);
@@ -43,15 +43,15 @@
                 foreach ($files as $file) {
 
                     // Check if it is an image file
-                    if (strpos($file, '.jpg') !== false) {
+                    if (strpos($file, '.webp') !== false) {
 
                         // Add the img tag
-                        echo '                <img data-media="image" type="image/jpg" src="'.$searchPath.$file.'" loading="lazy">
+                        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
 ';
 
                     }
 
-                    // Check if it is an mp4 file
+                    // Check if it is a video file
                     if (strpos($file, '.mp4') !== false) {
 
                         // Add the video tag
