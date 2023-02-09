@@ -12,7 +12,7 @@ A PHP-based gallery webapp for photos and videos taken on an Android device.
 
 5. Start the server.
 
-6. Share the generated link with friends and/or family on the same LAN (local area network)
+6. Share the generated link to show off your camera-work or memories on the same LAN (local area network)
 
 Note: If you have an https connection going from your computer or VPS either through a reverse proxy or a proper web server setup, you can keep KaveTorrent.js in the dep subfolder. This may expose the IP addresses of visitors to other visitors, so beware. It uses WebTorrent to distribute JPG and MP4 files.
 
