@@ -1,0 +1,36 @@
+{
+  "name": "Cam Kave",
+  "description": "Tunnel in.",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "start_url": "/",
+  "lang": "en-US",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "favicon.webp",
+      "sizes": "7680x7680",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "7680x7680",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "index.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpg"
+    }
+  ],
+  "short_name": "Cam Kave",
+  "scope": "/",
+  "orientation": "any",
+  "display_override": [
+    "standalone"
+  ]
+}
