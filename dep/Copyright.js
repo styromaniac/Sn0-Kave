@@ -3,5 +3,8 @@ var mit = document.querySelector("#MIT");
 
 copyright.addEventListener("click", function() {
   mit.classList.toggle("visible");
-  mit.scrollIntoView({ behavior: "smooth" });
+
+  if (mit.classList.contains("visible")) {
+    mit.scrollIntoView({ behavior: "smooth" });
+  }
 });
