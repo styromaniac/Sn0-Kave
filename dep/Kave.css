@@ -102,18 +102,18 @@
         }
 
         #MIT {
-            width: 0;
+            top: 0;
+            bottom: 0;
             height: 0;
-            top: 50%;
             left: 50%;
             margin: auto;
-            font-size: 0px;
             transform: rotate3d(1, 0, 0, 90deg);
             transition: all 1s ease;
         }
   
         #MIT.visible {
-            width: 100%;
+            top: 100%;
+            bottom: 100%;
             height: auto;
             font-size: 16px;
             transform: rotate3d(1, 0, 0, 0deg);
