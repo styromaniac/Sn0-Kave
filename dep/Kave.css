@@ -116,6 +116,7 @@
             bottom: 100%;
             height: auto;
             font-size: 16px;
+            display: inline;
             transform: rotate3d(1, 0, 0, 0deg);
         }
 
