@@ -2,7 +2,7 @@
 # Cam Kave
 A PHP-based gallery webapp for photos and videos taken on an Android device.
 
-OpenCamera is required with photos saving to the WebP format.
+OpenCamera is required with photos saving to the WebP format. It's highly recommended that "Store location data (Geotagging)" is disabled. It is disabled by default.
 
 1. Download the index.php file and move it into the DCIM folder (/storage/emulated/0/DCIM).
 
