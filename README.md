@@ -1,4 +1,4 @@
-![Blue Bat](BlueBat.svgz)
+![Blue Bat](BlueBat.svg)
 # Cam Kave
 A PHP-based gallery webapp for photos and videos taken on an Android device.
 
