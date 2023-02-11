@@ -1,4 +1,4 @@
-var copyright = document.querySelector(".copyright");
+var copyright = document.querySelector("#copyright");
 var mit = document.querySelector("#MIT");
 
 copyright.addEventListener("click", function() {
