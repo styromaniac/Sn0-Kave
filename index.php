@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <div class="overlay">
+    <div id="overlay">
         <div id="list">
             <span id="media">
 <?php
@@ -68,7 +68,7 @@
                 	<?php echo "Last synced: " . date ("F d Y H:i:s", getlastmod()); ?>  UTC.
                     </span>
                 	<br>
-                	<div class="copyright">
+                	<div id="copyright">
                 	<?php echo "Kave &copy 2018-".date ("Y", getlastmod()); ?> Alex "Styromaniac" Goven
                     <br>
                     <img src="dep/MIT.svg">
