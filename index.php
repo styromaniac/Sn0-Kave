@@ -13,10 +13,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" type="image/webp" sizes="7680x7680" href="dep/favicon.webp">
-    <link rel="apple-touch-icon" type="image/webp" sizes="7680x7680" href="dep/favicon.webp">
-    <link rel="icon" type="image/png" sizes="7680x7680" href="dep/favicon.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="7680x7680" href="dep/favicon.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="manifest" type="application/manifest+json" href="dep/manifest.json">
     <link rel="stylesheet" href="dep/Kave.css" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
@@ -105,6 +103,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     <script type="text/javascript" src="dep/Fullscreen.js"></script>
     <script type="text/javascript" src="dep/Copyright.js"></script>
     <script type="text/javascript" src="dep/Lightbox.js"></script>
-
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
 </body>
 </html>
