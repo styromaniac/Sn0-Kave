@@ -8,14 +8,8 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "favicon.webp",
-      "sizes": "7680x7680",
-      "type": "image/webp",
-      "purpose": "any"
-    },
-    {
       "src": "favicon.png",
-      "sizes": "7680x7680",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     }
