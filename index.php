@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
+    <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
+    <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="manifest" type="application/manifest+json" href="dep/manifest.json">
     <link rel="stylesheet" href="dep/Kave.css" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
