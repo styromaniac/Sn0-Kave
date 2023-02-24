@@ -1,28 +1,51 @@
-<!-- Cam Kave Copyright Alex "Styromaniac" Goven 2018-2023; Licensed MIT https://www.mit.edu/~amini/LICENSE.md -->
+<?php
+ob_start();
+?>
+<?php
+// Set the last modified time to the time when the file was last modified
+$lastModified = filemtime(__FILE__);
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $lastModified) . ' GMT');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
     <title>Cam Kave</title>
+
+    <link rel="manifest" href="dep/manifest.json">
+
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Cam Kave">
-    <meta name="apple-mobile-web-app-title" content="Cam Kave">
-    <meta name="theme-color" content="#000000">
-    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="application-name" content="Kave">
+    <meta name="apple-mobile-web-app-title" content="Kave">
+    <meta name="theme-color" content="#000">
+    <meta name="msapplication-navbutton-color" content="#000">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
-    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
-    <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
-    <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
-    <link rel="manifest" type="application/manifest+json" href="dep/manifest.json">
-    <link rel="stylesheet" href="dep/Kave.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png?<?php echo filemtime('dep/favicon.png'); ?>">
+    <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png?<?php echo filemtime('dep/favicon.png'); ?>">
+    <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp?<?php echo filemtime('dep/favicon.webp'); ?>">
+    <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp?<?php echo filemtime('dep/favicon.webp'); ?>">
+    <link rel="stylesheet" href="dep/Kave.css?<?php echo filemtime('dep/Kave.css'); ?>" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
+
     <script type="text/javascript" async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js?<?php echo filemtime('https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js'); ?>"></script>
     <script type="text/javascript" src="dep/KaveTorrent.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js?<?php echo filemtime('sw.js'); ?>').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+
     <base href="./" target="_top">
 
 </head>
@@ -101,20 +124,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         </a>
     </div>
 
-    <script type="text/javascript" src="dep/Viewplayer.js"></script>
-    <script type="text/javascript" src="dep/Fullscreen.js"></script>
-    <script type="text/javascript" src="dep/Copyright.js"></script>
-    <script type="text/javascript" src="dep/Lightbox.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        });
-      }
-    </script>
+    <script type="text/javascript" src="dep/Viewplayer.js?<?php echo filemtime('dep/Viewplayer.js'); ?>"></script>
+    <script type="text/javascript" src="dep/Fullscreen.js?<?php echo filemtime('dep/Fullscreen.js'); ?>"></script>
+    <script type="text/javascript" src="dep/Copyright.js?<?php echo filemtime('dep/Copyright.js'); ?>"></script>
+    <script type="text/javascript" src="dep/Lightbox.js?<?php echo filemtime('dep/Lightbox.js'); ?>"></script>
+
 </body>
 </html>
+<?php
+ob_end_flush();
+?>
