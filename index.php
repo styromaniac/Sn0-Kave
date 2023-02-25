@@ -21,22 +21,11 @@
     <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="stylesheet" type="text/css" href="dep/Kave.css" />
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.3/plyr.css" />
 
     <script type="text/javascript" async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
     <script type="text/javascript" src="dep/KaveTorrent.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }, function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        });
-      }
-    </script>
 
     <base href="./" target="_top">
 
