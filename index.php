@@ -1,3 +1,46 @@
+<?php
+// Define the paths to the directories
+$depPath = 'dep/';
+$openCameraPath = 'OpenCamera/';
+
+// Define the path to the checksums.txt file
+$checksumsPath = './sourcechecksums.txt';
+
+// Open the checksums.txt file for writing (or create it if it doesn't exist)
+$checksumsFile = fopen($checksumsPath, 'w');
+
+// Iterate over each file in the dep directory
+foreach (scandir($depPath) as $file) {
+    // Skip directories and the current and parent directory links
+    if (is_dir($depPath . $file) || in_array($file, ['.', '..'])) {
+        continue;
+    }
+    
+    // Calculate the SHA256 checksum of the file
+    $checksum = hash_file('sha256', $depPath . $file);
+    
+    // Write the relative path and checksum to the checksums.txt file
+    fwrite($checksumsFile, "$depPath$file\t$checksum\n");
+}
+
+// Iterate over each file in the OpenCamera directory
+foreach (scandir($openCameraPath) as $file) {
+    // Skip directories and the current and parent directory links
+    if (is_dir($openCameraPath . $file) || in_array($file, ['.', '..'])) {
+        continue;
+    }
+    
+    // Calculate the SHA256 checksum of the file
+    $checksum = hash_file('sha256', $openCameraPath . $file);
+    
+    // Write the relative path and checksum to the checksums.txt file
+    fwrite($checksumsFile, "$openCameraPath$file\t$checksum\n");
+}
+
+// Close the checksums.txt file
+fclose($checksumsFile);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
