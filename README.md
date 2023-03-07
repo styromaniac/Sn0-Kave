@@ -1,4 +1,4 @@
-![Blue Bat](BlueBat.svg)
+![BlueBat](https://user-images.githubusercontent.com/43807387/223560073-acc28613-fb20-448d-b167-4bc616832c5a.svg)
 # Cam Kave
 A PHP-based gallery webapp for photos and videos taken on an Android device.
 
