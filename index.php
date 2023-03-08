@@ -4,7 +4,7 @@ $depPath = 'dep/';
 $openCameraPath = 'OpenCamera/';
 
 // Define the path to the checksums.txt file
-$checksumsPath = './sourcechecksums.txt';
+$checksumsPath = './snow.txt';
 
 // Open the checksums.txt file for writing (or create it if it doesn't exist)
 $checksumsFile = fopen($checksumsPath, 'w');
