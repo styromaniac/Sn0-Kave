@@ -16,8 +16,8 @@ foreach (scandir($depPath) as $file) {
         continue;
     }
     
-    // Calculate the SHA256 checksum of the file
-    $checksum = hash_file('sha256', $depPath . $file);
+    // Calculate the sha3-512 checksum of the file
+    $checksum = hash_file('sha3-512', $depPath . $file);
     
     // Write the relative path and checksum to the checksums.txt file
     fwrite($checksumsFile, "$depPath$file\t$checksum\n");
@@ -30,8 +30,8 @@ foreach (scandir($openCameraPath) as $file) {
         continue;
     }
     
-    // Calculate the SHA256 checksum of the file
-    $checksum = hash_file('sha256', $openCameraPath . $file);
+    // Calculate the sha3-512 checksum of the file
+    $checksum = hash_file('sha3-512', $openCameraPath . $file);
     
     // Write the relative path and checksum to the checksums.txt file
     fwrite($checksumsFile, "$openCameraPath$file\t$checksum\n");
