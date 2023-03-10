@@ -11,8 +11,8 @@ $checksumsFile = fopen($checksumsPath, 'w');
 
 // Iterate over each file in the dep directory
 foreach (scandir($depPath) as $file) {
-    // Skip directories and the current and parent directory links
-    if (is_dir($depPath . $file) || in_array($file, ['.', '..'])) {
+    // Skip directories, files beginning with a period, and the current and parent directory links
+    if (is_dir($depPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
         continue;
     }
     
@@ -25,8 +25,8 @@ foreach (scandir($depPath) as $file) {
 
 // Iterate over each file in the OpenCamera directory
 foreach (scandir($openCameraPath) as $file) {
-    // Skip directories and the current and parent directory links
-    if (is_dir($openCameraPath . $file) || in_array($file, ['.', '..'])) {
+    // Skip directories, files beginning with a period, and the current and parent directory links
+    if (is_dir($openCameraPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
         continue;
     }
     
@@ -80,35 +80,35 @@ fclose($checksumsFile);
             <span id="media">
 <?php
 
-                // Define where we want to look for files.
-                $searchPath = 'OpenCamera/';
+// Define where we want to look for files.
+$searchPath = 'OpenCamera/';
 
-                // Get a list of everything in our search path
-                $files = scandir($searchPath);
+// Get a list of everything in our search path
+$files = scandir($searchPath);
 
-                // For each item in that list
-                foreach ($files as $file) {
+// For each item in that list
+foreach ($files as $file) {
 
-                    // Check if it is an image file
-                    if (strpos($file, '.webp') !== false) {
+    // Check if it is an image file and does not start with a period
+    if (strpos($file, '.webp') !== false && substr($file, 0, 1) !== '.') {
 
-                        // Add the img tag
-                        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
+        // Add the img tag
+        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
 ';
 
-                    }
+    }
 
-                    // Check if it is a video file
-                    if (strpos($file, '.mp4') !== false) {
+    // Check if it is a video file and does not start with a period
+    if (strpos($file, '.mp4') !== false && substr($file, 0, 1) !== '.') {
 
-                        // Add the video tag
-                        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
+        // Add the video tag
+        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
 ';
 
-                    }
+    }
 
-                }
-                ?>
+}
+?>
                 	</span>
                 	<br>
                 	<span class="text">
