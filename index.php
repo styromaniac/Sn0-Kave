@@ -3,10 +3,10 @@
 $depPath = 'dep/';
 $openCameraPath = 'OpenCamera/';
 
-// Define the path to the checksums.txt file
+// Define the path to the snow.txt file
 $checksumsPath = './snow.txt';
 
-// Open the checksums.txt file for writing (or create it if it doesn't exist)
+// Open the snow.txt file for writing (or create it if it doesn't exist)
 $checksumsFile = fopen($checksumsPath, 'w');
 
 // Iterate over each file in the dep directory
