@@ -1,3 +1,4 @@
+
 const lightboxElem = document.getElementById("lightbox");
 const contentElem = document.getElementById("content");
 let player;
@@ -8,6 +9,9 @@ for (let i = 0; i < elements.length; i++) {
         let src = e.target.src;
         let type = e.target.dataset.media;
         openLightbox(src, type);
+        lazyVideos.forEach(video => {
+            video.pause();
+        });
     };
 }
 
@@ -37,4 +41,7 @@ function closeLightbox() {
     }
     contentElem.innerHTML = '';
     lightboxElem.style.display = 'none';
+    lazyVideos.forEach(video => {
+        video.play();
+    });
 }
