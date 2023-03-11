@@ -37,7 +37,7 @@ foreach (scandir($openCameraPath) as $file) {
     fwrite($checksumsFile, "$openCameraPath$file\t$checksum\n");
 }
 
-// Close the checksums.txt file
+// Close the snow.txt file
 fclose($checksumsFile);
 ?>
 
