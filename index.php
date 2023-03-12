@@ -64,9 +64,9 @@ fclose($checksumsFile);
     <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="stylesheet" type="text/css" href="dep/Kave.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.3/plyr.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.7/plyr.css" />
 
-    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.7/plyr.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
     <script type="text/javascript" src="dep/KaveTorrent.js"></script>
 
