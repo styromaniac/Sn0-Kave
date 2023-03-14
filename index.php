@@ -73,34 +73,21 @@ fclose($checksumsFile);
             <span id="media">
 <?php
 
-// Define where we want to look for files.
 $searchPath = 'OpenCamera/';
 
-// Get a list of everything in our search path
-$files = scandir($searchPath);
+$files = glob($searchPath . '*.{webp,mp4}', GLOB_BRACE);
 
-// For each item in that list
 foreach ($files as $file) {
-
-    // Check if it is an image file and does not start with a period
-    if (strpos($file, '.webp') !== false && substr($file, 0, 1) !== '.') {
-
-        // Add the img tag
-        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
-';
-
+    if (substr($file, 0, 1) !== '.') {
+        $type = pathinfo($file, PATHINFO_EXTENSION);
+        if ($type === 'webp') {
+            echo sprintf('                <img data-media="image" type="image/webp" src="%s" loading="lazy">', $file);
+        } elseif ($type === 'mp4') {
+            echo sprintf('                <video data-media="video" type="video/mp4" src="%s"></video>', $file);
+        }
     }
-
-    // Check if it is a video file and does not start with a period
-    if (strpos($file, '.mp4') !== false && substr($file, 0, 1) !== '.') {
-
-        // Add the video tag
-        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
-';
-
-    }
-
 }
+
 ?>
                 	</span>
                 	<br>
