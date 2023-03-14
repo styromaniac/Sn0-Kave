@@ -75,16 +75,14 @@ fclose($checksumsFile);
 
 $searchPath = 'OpenCamera/';
 
-$files = glob($searchPath . '*.{*}', GLOB_BRACE);
+$files = glob($searchPath . '*.{webp,mp4}', GLOB_BRACE);
 
 foreach ($files as $file) {
-    if (substr($file, 0, 1) !== '.') {
-        $type = pathinfo($file, PATHINFO_EXTENSION);
-        if ($type === 'webp') {
-            echo sprintf('                <img data-media="image" src="%s" loading="lazy">', $file);
-        } elseif ($type === 'mp4') {
-            echo sprintf('                <video data-media="video" src="%s"></video>', $file);
-        }
+    $type = pathinfo($file, PATHINFO_EXTENSION);
+    if ($type === 'webp') {
+        echo sprintf('                <img data-media="image" src="%s" loading="lazy">', $file);
+    } elseif ($type === 'mp4') {
+        echo sprintf('                <video data-media="video" src="%s"></video>', $file);
     }
 }
 
