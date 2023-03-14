@@ -1,4 +1,20 @@
 <?php
+function writeChecksums($dirPath, $checksumsFile) {
+    // Iterate over each file in the directory
+    foreach (scandir($dirPath) as $file) {
+        // Skip directories, files beginning with a period, and the current and parent directory links
+        if (is_dir($dirPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
+            continue;
+        }
+        
+        // Calculate the sha3-512 checksum of the file
+        $checksum = hash_file('sha3-512', $dirPath . $file);
+        
+        // Write the checksum and relative path to the sn0.txt file with an asterisk before the path
+        fwrite($checksumsFile, "$checksum *$dirPath$file\n");
+    }
+}
+
 // Define the paths to the directories
 $depPath = 'dep/';
 $openCameraPath = 'OpenCamera/';
@@ -9,33 +25,11 @@ $checksumsPath = './sn0.txt';
 // Open the sn0.txt file for writing (or create it if it doesn't exist)
 $checksumsFile = fopen($checksumsPath, 'w');
 
-// Iterate over each file in the dep directory
-foreach (scandir($depPath) as $file) {
-    // Skip directories, files beginning with a period, and the current and parent directory links
-    if (is_dir($depPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
-        continue;
-    }
-    
-    // Calculate the sha3-512 checksum of the file
-    $checksum = hash_file('sha3-512', $depPath . $file);
-    
-    // Write the relative path and checksum to the sn0.txt file
-    fwrite($checksumsFile, "$depPath$file\t$checksum\n");
-}
+// Write checksums for the dep directory
+writeChecksums($depPath, $checksumsFile);
 
-// Iterate over each file in the OpenCamera directory
-foreach (scandir($openCameraPath) as $file) {
-    // Skip directories, files beginning with a period, and the current and parent directory links
-    if (is_dir($openCameraPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
-        continue;
-    }
-    
-    // Calculate the sha3-512 checksum of the file
-    $checksum = hash_file('sha3-512', $openCameraPath . $file);
-    
-    // Write the relative path and checksum to the sn0.txt file
-    fwrite($checksumsFile, "$openCameraPath$file\t$checksum\n");
-}
+// Write checksums for the OpenCamera directory
+writeChecksums($openCameraPath, $checksumsFile);
 
 // Close the sn0.txt file
 fclose($checksumsFile);
