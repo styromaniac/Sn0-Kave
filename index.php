@@ -1,24 +1,19 @@
 <?php
 function writeChecksums($dirPath, $checksumsFile) {
-    // Open the directory for reading
-    $dir = opendir($dirPath);
+    // Get an array of all files in the directory (excluding directories and files beginning with a period)
+    $files = glob($dirPath . '*', GLOB_MARK|GLOB_NOSORT);
+    $files = array_filter($files, function($file) {
+        return !is_dir($file) && $file[0] !== '.';
+    });
     
-    // Iterate over each file in the directory
-    while (($file = readdir($dir)) !== false) {
-        // Skip directories, files beginning with a period, and the current and parent directory links
-        if (is_dir($dirPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
-            continue;
-        }
-        
+    // Iterate over each file in the array
+    foreach ($files as $file) {
         // Calculate the sha3-512 checksum of the file
-        $checksum = hash_file('sha3-512', $dirPath . $file);
+        $checksum = hash_file('sha3-512', $file);
         
         // Write the checksum and relative path to the sn0.txt file with an asterisk before the path
-        fwrite($checksumsFile, "$checksum *$dirPath$file\n");
+        fwrite($checksumsFile, "$checksum *$file\n");
     }
-    
-    // Close the directory
-    closedir($dir);
 }
 
 // Define the paths to the directories
