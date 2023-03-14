@@ -1,7 +1,10 @@
 <?php
 function writeChecksums($dirPath, $checksumsFile) {
+    // Open the directory for reading
+    $dir = opendir($dirPath);
+    
     // Iterate over each file in the directory
-    foreach (scandir($dirPath) as $file) {
+    while (($file = readdir($dir)) !== false) {
         // Skip directories, files beginning with a period, and the current and parent directory links
         if (is_dir($dirPath . $file) || $file[0] === '.' || in_array($file, ['.', '..'])) {
             continue;
@@ -13,11 +16,13 @@ function writeChecksums($dirPath, $checksumsFile) {
         // Write the checksum and relative path to the sn0.txt file with an asterisk before the path
         fwrite($checksumsFile, "$checksum *$dirPath$file\n");
     }
+    
+    // Close the directory
+    closedir($dir);
 }
 
 // Define the paths to the directories
-$depPath = 'dep/';
-$openCameraPath = 'OpenCamera/';
+$dirPaths = ['dep/', 'OpenCamera/'];
 
 // Define the path to the sn0.txt file
 $checksumsPath = './sn0.txt';
@@ -25,11 +30,10 @@ $checksumsPath = './sn0.txt';
 // Open the sn0.txt file for writing (or create it if it doesn't exist)
 $checksumsFile = fopen($checksumsPath, 'w');
 
-// Write checksums for the dep directory
-writeChecksums($depPath, $checksumsFile);
-
-// Write checksums for the OpenCamera directory
-writeChecksums($openCameraPath, $checksumsFile);
+// Write checksums for each directory
+foreach ($dirPaths as $dirPath) {
+    writeChecksums($dirPath, $checksumsFile);
+}
 
 // Close the sn0.txt file
 fclose($checksumsFile);
