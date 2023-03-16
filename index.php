@@ -73,31 +73,46 @@ fclose($checksumsFile);
             <span id="media">
 <?php
 
+// Define where we want to look for files.
 $searchPath = 'OpenCamera/';
 
-$files = glob($searchPath . '*.{webp,mp4}', GLOB_BRACE);
+// Get a list of everything in our search path
+$files = scandir($searchPath);
 
+// For each item in that list
 foreach ($files as $file) {
-    $type = pathinfo($file, PATHINFO_EXTENSION);
-    if ($type === 'webp') {
-        echo sprintf('                <img data-media="image" src="%s" loading="lazy">', $file);
-    } elseif ($type === 'mp4') {
-        echo sprintf('                <video data-media="video" src="%s"></video>', $file);
-    }
-}
 
+    // Check if it is an image file and does not start with a period
+    if (strpos($file, '.webp') !== false && substr($file, 0, 1) !== '.') {
+
+        // Add the img tag
+        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
+';
+
+    }
+
+    // Check if it is a video file and does not start with a period
+    if (strpos($file, '.mp4') !== false && substr($file, 0, 1) !== '.') {
+
+        // Add the video tag
+        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
+';
+
+    }
+
+}
 ?>
-                	</span>
-                	<br>
-                	<span class="text">
-                	<?php echo "Last synced: " . date ("F d Y H:i:s", getlastmod()); ?>  UTC.
-                    </span>
-                	<br>
-                	<div id="copyright">
-                	<?php echo "Kave &copy 2018-".date ("Y", getlastmod()); ?> Alex "Styromaniac" Goven
-                    <br>
-                    <img src="dep/MIT.svg">
-                    <br>
+            </span>
+            <br>
+            <span class="text">
+            <?php echo "Last synced: " . date ("F d Y H:i:s", getlastmod()); ?>  UTC.
+            </span>
+            <br>
+            <div id="copyright">
+            <?php echo "Kave &copy 2018-".date ("Y", getlastmod()); ?> Alex "Styromaniac" Goven
+            <br>
+            <img src="dep/MIT.svg">
+            <br>
 <div id="MIT" class="transition hide">
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 <br>
