@@ -19,7 +19,7 @@ function writeChecksums($dirPath, $checksumsFile) {
     }
 }
 
-$dirPaths = ['dep/', 'OpenCamera/'];
+$dirPaths = ['dep', 'OpenCamera'];
 $checksumsPath = './sn0.txt';
 
 // Check if the file opens successfully
