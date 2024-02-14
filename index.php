@@ -1,7 +1,7 @@
 <?php
 function writeChecksums($dirPath, $checksumsFile) {
-    // Get an array of all files in the directory (excluding directories and files beginning with a period)
-    $files = glob($dirPath . '*', GLOB_MARK|GLOB_NOSORT);
+    // Correctly get an array of all files in the directory, excluding directories and files beginning with a period
+    $files = glob($dirPath . '/*', GLOB_MARK | GLOB_NOSORT);
     $files = array_filter($files, function($file) {
         return !is_dir($file) && $file[0] !== '.';
     });
@@ -11,27 +11,26 @@ function writeChecksums($dirPath, $checksumsFile) {
         // Calculate the sha3-512 checksum of the file
         $checksum = hash_file('sha3-512', $file);
         
-        // Write the checksum and relative path to the sn0.txt file with an asterisk before the path
-        fwrite($checksumsFile, "$checksum *$file\n");
+        // Check if fwrite fails
+        if (fwrite($checksumsFile, "$checksum *$file\n") === false) {
+            echo "Error writing to checksum file.";
+            return;
+        }
     }
 }
 
-// Define the paths to the directories
 $dirPaths = ['dep/', 'OpenCamera/'];
-
-// Define the path to the sn0.txt file
 $checksumsPath = './sn0.txt';
 
-// Open the sn0.txt file for writing (or create it if it doesn't exist)
-$checksumsFile = fopen($checksumsPath, 'w');
-
-// Write checksums for each directory
-foreach ($dirPaths as $dirPath) {
-    writeChecksums($dirPath, $checksumsFile);
+// Check if the file opens successfully
+if ($checksumsFile = fopen($checksumsPath, 'w')) {
+    foreach ($dirPaths as $dirPath) {
+        writeChecksums($dirPath, $checksumsFile);
+    }
+    fclose($checksumsFile);
+} else {
+    echo "Error opening checksum file.";
 }
-
-// Close the sn0.txt file
-fclose($checksumsFile);
 ?>
 
 <!DOCTYPE html>
@@ -71,37 +70,23 @@ fclose($checksumsFile);
     <div id="overlay">
         <div id="list">
             <span id="media">
-<?php
-
-// Define where we want to look for files.
-$searchPath = 'OpenCamera/';
-
-// Get a list of everything in our search path
-$files = scandir($searchPath);
-
-// For each item in that list
-foreach ($files as $file) {
-
-    // Check if it is an image file and does not start with a period
-    if (strpos($file, '.webp') !== false && substr($file, 0, 1) !== '.') {
-
-        // Add the img tag
-        echo '                <img data-media="image" type="image/webp" src="'.$searchPath.$file.'" loading="lazy">
-';
-
-    }
-
-    // Check if it is a video file and does not start with a period
-    if (strpos($file, '.mp4') !== false && substr($file, 0, 1) !== '.') {
-
-        // Add the video tag
-        echo '                <video data-media="video" type="video/mp4" src="'.$searchPath.$file.'"></video>
-';
-
-    }
-
-}
-?>
+                <?php
+                $searchPath = 'OpenCamera/';
+                $files = scandir($searchPath);
+                foreach ($files as $file) {
+                    if (!is_dir($file) && $file[0] !== '.') {
+                        $pathInfo = pathinfo($file);
+                        $extension = strtolower($pathInfo['extension']);
+                        $filePath = htmlspecialchars($searchPath . $file); // Sanitize file path for HTML output
+                        
+                        if ($extension === 'webp') {
+                            echo "<img data-media='image' type='image/webp' src='$filePath' loading='lazy' alt='Image'>\n";
+                        } elseif ($extension === 'mp4') {
+                            echo "<video data-media='video' type='video/mp4' src='$filePath'></video>\n";
+                        }
+                    }
+                }
+                ?>
             </span>
             <br>
             <span class="text">
