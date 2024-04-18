@@ -19,7 +19,7 @@ function writeChecksums($dirPath, $checksumsFile) {
     }
 }
 
-$dirPaths = ['dep', 'OpenCamera'];
+$dirPaths = ['./'];
 $checksumsPath = './sn0.txt';
 
 // Check if the file opens successfully
@@ -70,23 +70,26 @@ if ($checksumsFile = fopen($checksumsPath, 'w')) {
     <div id="overlay">
         <div id="list">
             <span id="media">
-                <?php
-                $searchPath = 'OpenCamera/';
-                $files = scandir($searchPath);
-                foreach ($files as $file) {
-                    if (!is_dir($file) && $file[0] !== '.') {
-                        $pathInfo = pathinfo($file);
-                        $extension = strtolower($pathInfo['extension']);
-                        $filePath = htmlspecialchars($searchPath . $file); // Sanitize file path for HTML output
-                        
-                        if ($extension === 'webp') {
-                            echo "<img data-media='image' type='image/webp' src='$filePath' loading='lazy' alt='Image'>\n";
-                        } elseif ($extension === 'mp4') {
-                            echo "<video data-media='video' type='video/mp4' src='$filePath'></video>\n";
-                        }
-                    }
-                }
-                ?>
+<?php
+$searchPath = 'OpenCamera/';
+$files = scandir($searchPath);
+foreach ($files as $file) {
+    if (!is_dir($file) && $file[0] !== '.') {
+        $pathInfo = pathinfo($file);
+        $extension = strtolower($pathInfo['extension']);
+        $filePath = htmlspecialchars($searchPath . $file); // Sanitize file path for HTML output
+        
+        if ($extension === 'zip') {
+            // Assuming you have saved the decoded SVG as 'zip-thumbnail.svg' in the 'dep' directory
+            echo "<img data-media='archive' type='image/svg+xml' src='dep/zip-thumbnail.svg' loading='lazy' alt='Zip Archive Thumbnail'>\n";
+        } elseif ($extension === 'webp') {
+            echo "<img data-media='image' type='image/webp' src='$filePath' loading='lazy' alt='Image'>\n";
+        } elseif ($extension === 'mp4') {
+            echo "<video data-media='video' type='video/mp4' src='$filePath'></video>\n";
+        }
+    }
+}
+?>
             </span>
             <br>
             <span class="text">
@@ -130,6 +133,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     <script type="text/javascript" src="dep/Fullscreen.js"></script>
     <script type="text/javascript" src="dep/Copyright.js"></script>
     <script type="text/javascript" src="dep/Lightbox.js"></script>
+    <script type="text/javascript" src="dep/Layout.js"></script>
 
 </body>
 </html>
