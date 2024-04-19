@@ -5,8 +5,7 @@ function writeChecksums($dirPath, $checksumsFile) {
         $filePath = realpath($dirPath. '/'. $file);
         if (!is_dir($filePath) && $file[0]!== '.') {
             $checksum = hash_file('sha3-512', $filePath);
-            $fileName = basename($filePath);
-            fwrite($checksumsFile, "$fileName: $checksum\n");
+            fwrite($checksumsFile, "$checksum *$file\n");
         }
     }
 }
