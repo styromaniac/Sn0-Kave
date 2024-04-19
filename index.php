@@ -1,19 +1,35 @@
 <?php
-function writeChecksums($dirPath) {
-    $files = glob($dirPath. '/*.*', GLOB_MARK | GLOB_NOSORT);
-    $checksums = [];
+function writeChecksums($dirPath, $checksumsFile) {
+    // Correctly get an array of all files in the directory, excluding directories and files beginning with a period
+    $files = glob($dirPath . '/*', GLOB_MARK | GLOB_NOSORT);
+    $files = array_filter($files, function($file) {
+        return !is_dir($file) && $file[0] !== '.';
+    });
+    
+    // Iterate over each file in the array
     foreach ($files as $file) {
-        if (!is_dir($file) && $file[0]!== '.') {
-            $checksum = hash_file('sha3-512', $file);
-            $checksums[basename($file)] = $checksum; // Use basename to prevent directory traversal
+        // Calculate the sha3-512 checksum of the file
+        $checksum = hash_file('sha3-512', $file);
+        
+        // Check if fwrite fails
+        if (fwrite($checksumsFile, "$checksum *$file\n") === false) {
+            echo "Error writing to checksum file.";
+            return;
         }
     }
-    file_put_contents('checksums.json', json_encode($checksums));
 }
 
-$dirPaths = ['./dep'];
-foreach ($dirPaths as $dirPath) {
-    writeChecksums($dirPath);
+$dirPaths = ['./'];
+$checksumsPath = './sn0.txt';
+
+// Check if the file opens successfully
+if ($checksumsFile = fopen($checksumsPath, 'w')) {
+    foreach ($dirPaths as $dirPath) {
+        writeChecksums($dirPath, $checksumsFile);
+    }
+    fclose($checksumsFile);
+} else {
+    echo "Error opening checksum file.";
 }
 ?>
 
@@ -35,9 +51,9 @@ foreach ($dirPaths as $dirPath) {
     <?php
     $checksums = json_decode(file_get_contents('checksums.json'), true);
     $cssFile = "dep/Kave.css";
-    $cssVersion = $checksums[basename($cssFile)]?? ''; // Use basename to prevent directory traversal
-    echo '<link rel="stylesheet" type="text/css" href="'. htmlspecialchars($cssFile, ENT_QUOTES, 'UTF-8'). '?v='. $cssVersion. '">';
-   ?>
+    $cssVersion = $checksums[$cssFile] ?? '';
+    echo '<link rel="stylesheet" type="text/css" href="'.$cssFile.'?v='.$cssVersion.'">';
+    ?>
     <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
@@ -54,20 +70,20 @@ foreach ($dirPaths as $dirPath) {
                 $searchPath = 'OpenCamera/';
                 $files = scandir($searchPath);
                 foreach ($files as $file) {
-                    if (!is_dir($file) && $file[0]!== '.') {
-                        $filePath = $searchPath. $file;
-                        $pathInfo = pathinfo($filePath);
+                    if (!is_dir($file) && $file[0] !== '.') {
+                        $pathInfo = pathinfo($file);
                         $extension = strtolower($pathInfo['extension']);
+                        $filePath = htmlspecialchars($searchPath . $file); // Sanitize file path for HTML output
                         if ($extension === 'zip') {
-                            echo "<img data-media='archive' type='image/svg+xml' src='dep/zip-thumbnail.svg' loading='lazy' alt='Zip Archive Thumbnail'>";
+                            echo "<img data-media='archive' type='image/svg+xml' src='dep/zip-thumbnail.svg' loading='lazy' alt='Zip Archive Thumbnail'>\n";
                         } elseif ($extension === 'webp') {
-                            echo "<img data-media='image' type='image/webp' src='". htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8'). "' loading='lazy' alt='Image'>";
-                        } elseif ($extension ==='mp4') {
-                            echo "<video data-media='video' type='video/mp4' src='". htmlspecialchars($filePath, ENT_QUOTES, 'UTF-8'). "'></video>";
+                            echo "<img data-media='image' type='image/webp' src='$filePath' loading='lazy' alt='Image'>\n";
+                        } elseif ($extension === 'mp4') {
+                            echo "<video data-media='video' type='video/mp4' src='$filePath'></video>\n";
                         }
                     }
                 }
-               ?>
+                ?>
             </span>
             <br>
             <span class="text">
