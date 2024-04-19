@@ -43,8 +43,8 @@ if ($checksumsFile = fopen($checksumsPath, 'w')) {
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
-    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.8/plyr.css">
-    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <link rel="stylesheet" type="text/css" href="dep/plyr.css">
+    <script type="text/javascript" async src="dep/plyr.js"></script>
 
     <base href="./" target="_top">
 
