@@ -94,7 +94,7 @@ if ($checksumsFile = fopen($checksumsPath, 'w')) {
             </div>
             <div id="lightbox">
                 <div class="bar">
-                    <a oncontextmenu="toggleFullScreen()" onclick="window.closeLightbox()">
+                    <a oncontextmenu="toggleFullScreen()" onclick="closeLightbox(event)">
                         <span class="bat"></span>
                     </a>
                 </div>
