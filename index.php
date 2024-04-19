@@ -1,35 +1,26 @@
 <?php
 function writeChecksums($dirPath, $checksumsFile) {
-    // Correctly get an array of all files in the directory, excluding directories and files beginning with a period
-    $files = glob($dirPath . '/*', GLOB_MARK | GLOB_NOSORT);
-    $files = array_filter($files, function($file) {
-        return !is_dir($file) && $file[0] !== '.';
-    });
-    
-    // Iterate over each file in the array
+    $files = scandir($dirPath);
     foreach ($files as $file) {
-        // Calculate the sha3-512 checksum of the file
-        $checksum = hash_file('sha3-512', $file);
-        
-        // Check if fwrite fails
-        if (fwrite($checksumsFile, "$checksum *$file\n") === false) {
-            echo "Error writing to checksum file.";
-            return;
+        $filePath = realpath($dirPath. '/'. $file);
+        if (!is_dir($filePath) && $file[0]!== '.') {
+            $checksum = hash_file('sha3-512', $filePath);
+            $fileName = basename($filePath);
+            fwrite($checksumsFile, "$fileName: $checksum\n");
         }
     }
 }
 
-$dirPaths = ['./'];
+$dirPaths = ['./OpenCamera'];
 $checksumsPath = './sn0.txt';
 
-// Check if the file opens successfully
 if ($checksumsFile = fopen($checksumsPath, 'w')) {
     foreach ($dirPaths as $dirPath) {
         writeChecksums($dirPath, $checksumsFile);
     }
     fclose($checksumsFile);
 } else {
-    echo "Error opening checksum file.";
+    throw new Exception("Error opening checksum file.");
 }
 ?>
 
