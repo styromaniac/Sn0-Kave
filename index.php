@@ -38,19 +38,16 @@ if ($checksumsFile = fopen($checksumsPath, 'w')) {
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <?php
-    $checksums = json_decode(file_get_contents('checksums.json'), true);
-    $cssFile = "dep/Kave.css";
-    $cssVersion = $checksums[$cssFile] ?? '';
-    echo '<link rel="stylesheet" type="text/css" href="'.$cssFile.'?v='.$cssVersion.'">';
-    ?>
+    <link rel="stylesheet" type="text/css" href="dep/Kave.css">
     <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
     <link rel="apple-touch-icon" type="image/webp" sizes="512x512" href="dep/favicon.webp">
-    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.7/plyr.css">
-    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.7/plyr.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.plyr.io/3.7.8/plyr.css">
+    <script type="text/javascript" async src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+
     <base href="./" target="_top">
+
 </head>
 <body>
     <div id="overlay">
