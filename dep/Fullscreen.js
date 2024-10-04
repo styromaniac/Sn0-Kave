@@ -26,8 +26,6 @@ function toggleFullScreen() {
         } else if (document.documentElement.webkitRequestFullscreen) {
             document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
         }
-        // Apply scaling when entering fullscreen
-        setPageScale(0.8);
     } else {
         // Exiting fullscreen
         if (document.exitFullscreen) {
@@ -39,8 +37,6 @@ function toggleFullScreen() {
         } else if (document.webkitExitFullscreen) {
             document.webkitExitFullscreen();
         }
-        // Reset scaling when exiting fullscreen
-        setPageScale(originalScale);
     }
 }
 
@@ -51,11 +47,14 @@ document.addEventListener('mozfullscreenchange', handleFullscreenChange);
 document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
 function handleFullscreenChange() {
-    if (!document.fullscreenElement &&
-        !document.webkitFullscreenElement &&
-        !document.mozFullScreenElement &&
-        !document.msFullscreenElement) {
-        // Reset scaling when exiting fullscreen
+    if (document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement) {
+        // Entered fullscreen
+        setPageScale(0.8);
+    } else {
+        // Exited fullscreen
         setPageScale(originalScale);
     }
 }
