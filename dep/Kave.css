@@ -1,186 +1,186 @@
-        .plyr {
-            --plyr-color-main: #3060c0;
-            --plyr-video-background:none;
-            height:100%
-            }
+.plyr {
+    --plyr-color-main: #3060c0;
+    --plyr-video-background:none;
+    height:100%
+}
 
-        @media (pointer: fine) {
-                ::-webkit-scrollbar {
-                 width: 8px
-                }
-            }
+@media (pointer: fine) {
+    ::-webkit-scrollbar {
+        width: 10px
+    }
+}
 
-        @media (pointer: coarse) {
-                ::-webkit-scrollbar {
-                width: 0px
-                }
-            }
+@media (pointer: coarse) {
+    ::-webkit-scrollbar {
+        width: 0px
+    }
+}
 
-        ::-webkit-scrollbar-track {
-            background: 0 0
-        }
+::-webkit-scrollbar-track {
+    background: 0 0
+}
 
-        ::-webkit-scrollbar-thumb {
-            background: radial-gradient(transparent,#248) center no-repeat;
-            border-radius: 4px
-        }
+::-webkit-scrollbar-thumb {
+    background: radial-gradient(transparent,#248) center no-repeat;
+    border-radius: 5px
+}
 
-        .bar,.bat {
-            height: 45px
-        }
+.bar,.bat {
+    height: 56px
+}
 
-        .bat {
-            bottom: 0
-        }
+.bat {
+    bottom: 0
+}
 
-        .bar,#list {
-            text-align: center
-        }
+.bar,#list {
+    text-align: center
+}
 
-        .bar,html {
-            overflow: hidden
-        }
+.bar,html {
+    overflow: hidden
+}
 
-        .bar {
-            background: linear-gradient(to bottom,#36c,#060c18,#0c1830);
-            border-radius: 23px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 2
-        }
+.bar {
+    background: linear-gradient(to bottom,#36c,#060c18,#0c1830);
+    border-radius: 29px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 2
+}
 
-        .bat {
-            content: url("BlueBat.svg");
-            display: inline-block
-        }
+.bat {
+    content: url("BlueBat.svg");
+    display: inline-block
+}
 
-        .bar,.bat,.shadow,#content,#copyright img {
-            filter: drop-shadow(0 0 7px #000)
-        }
+.bar,.bat,.shadow,#content,#copyright img {
+    filter: drop-shadow(0 0 9px #000)
+}
 
-        #list,#overlay {
-            height: calc(100% - 45px)
-        }
+#list,#overlay {
+    height: calc(100% - 56px)
+}
 
-        #list {
-            margin: 12px 0
-        }
+#list {
+    margin: 15px 0
+}
 
-        #media {
-            height:100%;
-        }
+#media {
+    height:100%;
+}
 
-        #media img,#media video {
-            top: 45px;
-            border: 1px solid #000;
-            box-shadow: 0 0 7px 7px #000;
-            outline: #124 solid 4px;
-            position: 50% 50%;
-            width: 166px!important;
-            z-index: 1;
-            margin: 7px
-        }
+#media img,#media video {
+    top: 56px;
+    border: 1px solid #000;
+    box-shadow: 0 0 9px 9px #000;
+    outline: #124 solid 5px;
+    position: 50% 50%;
+    width: 208px!important;
+    z-index: 1;
+    margin: 9px
+}
 
-        #media img,#media video,#menu {
-            height: auto
-        }
+#media img,#media video,#menu {
+    height: auto
+}
 
-        #media img:hover,#media video:hover {
-            outline: #444 solid 4px
-        }
+#media img:hover,#media video:hover {
+    outline: #444 solid 5px
+}
 
-        #menu img {
-            width: 150px!important;
-            padding: 28px 14px
-        }
+#menu img {
+    width: 188px!important;
+    padding: 35px 18px
+}
 
-        #UserIcon {
-            height: 100px;
-            border-radius: 50px;
-            outline: 3px solid #124
-        }
+#UserIcon {
+    height: 125px;
+    border-radius: 63px;
+    outline: 4px solid #124
+}
 
-        #MIT {
-            top: 0;
-            height: 0;
-            transition: all 1s ease;
-            transform: rotate3d(1, 0, 0, 90deg);
-        }
-  
-        #MIT.visible {
-            top: 100%;
-            height: auto;
-            display: inline;
-            font-size: 16px;
-            transform: rotate3d(1, 0, 0, 0deg);
-        }
+#MIT {
+    top: 0;
+    height: 0;
+    transition: all 1s ease;
+    transform: rotate3d(1, 0, 0, 90deg);
+}
 
-        #overlay {
-            will-change: scroll-position;
-            box-shadow: inset 0 0 8px 8px #000
-        }
+#MIT.visible {
+    top: 100%;
+    height: auto;
+    display: inline;
+    font-size: 20px;
+    transform: rotate3d(1, 0, 0, 0deg);
+}
 
-        #copyright, .text {
-            line-height: 2;
-            text-shadow: 0 0 14px #000;
-            color: #48f;
-            cursor: default;
-            font-size: 16px;
-            text-decoration: none
-        }
+#overlay {
+    will-change: scroll-position;
+    box-shadow: inset 0 0 10px 10px #000
+}
 
-        #copyright img {
-            height: 32px
-        }
+#copyright, .text {
+    line-height: 2;
+    text-shadow: 0 0 18px #000;
+    color: #48f;
+    cursor: default;
+    font-size: 20px;
+    text-decoration: none
+}
 
-        * {
-            user-select: none;
-            -webkit-tap-highlight-color: transparent
-        }
+#copyright img {
+    height: 40px
+}
 
-        a {
-            color: #48f;
-            cursor: default;
-            font-size: 20px;
-            text-decoration: none
-        }
+* {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent
+}
 
-        body {
-            background: radial-gradient(#124,#000) center no-repeat,#000;
-            overscroll-behavior:none;
-            touch-action: pan-y;
-            height:100%;
-            margin: 0
-        }
+a {
+    color: #48f;
+    cursor: default;
+    font-size: 25px;
+    text-decoration: none
+}
 
-        .bat,#overlay,body {
-            overflow: auto
-        }
+body {
+    background: radial-gradient(#124,#000) center no-repeat,#000;
+    overscroll-behavior:none;
+    touch-action: pan-y;
+    height:100%;
+    margin: 0
+}
 
-        #media img,#media video,body {
-            background-size: 100%
-        }
+.bat,#overlay,body {
+    overflow: auto
+}
 
-        html {
-            backface-visibility: hidden;
-            transform: translate3D(0,0,0);
-            height:100%;
-        }
+#media img,#media video,body {
+    background-size: 100%
+}
 
-        video::-webkit-media-controls-panel {
-            background-image: linear-gradient(transparent,transparent)!important
-        }
+html {
+    backface-visibility: hidden;
+    transform: translate3D(0,0,0);
+    height:100%;
+}
 
-        #content {
-            height: 100%;
-            backdrop-filter: blur(7px)brightness(50%);
-        }
+video::-webkit-media-controls-panel {
+    background-image: linear-gradient(transparent,transparent)!important
+}
+
+#content {
+    height: 100%;
+    backdrop-filter: blur(9px)brightness(50%);
+}
 
 #lightbox {
     display: none;
     width: 100%;
-    height: calc(100% - 45px);
+    height: calc(100% - 56px);
     top: 0;
     left: 0;
     position: fixed;
@@ -194,7 +194,7 @@
 }
 
 #content.blurred {
-    backdrop-filter: blur(7px) brightness(50%);
+    backdrop-filter: blur(9px) brightness(50%);
 }
 
 .lightbox-background {
@@ -204,23 +204,23 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
     z-index: 9998;
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
-        #lightbox img,#lightbox video {
-            width: auto!important;
-            height: auto!important;
-            max-width: 100%!important;
-            max-height: 100%!important;
-            outline: 0!important;
-            border: 0!important;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            margin: auto
-        }
+#lightbox img,#lightbox video {
+    width: auto!important;
+    height: auto!important;
+    max-width: 100%!important;
+    max-height: 100%!important;
+    outline: 0!important;
+    border: 0!important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto
+}

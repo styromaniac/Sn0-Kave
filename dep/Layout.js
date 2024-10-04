@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
     function handleResize() {
         const isLandscape = window.matchMedia("(orientation: landscape)").matches;
         const numColumns = isLandscape ? 4 : 2;
-        const margin = isLandscape ? '0 -7px' : '0 -10px'; // Set different margins for landscape and portrait
+        const margin = isLandscape ? '0 -9px' : '0 -13px'; // Adjusted margins
         createColumns(numColumns, margin);
         distributeMedia();
     }
