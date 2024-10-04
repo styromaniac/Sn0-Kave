@@ -48,9 +48,9 @@ function writeChecksums($dirPath, $checksumsFile) {
             if ($checksum === false) {
                 throw new Exception("Failed to hash file: $filePath");
             }
-            // Use basename to avoid any directory components
-            $safeFile = basename($file);
-            fwrite($checksumsFile, "$checksum *$safeFile\n");
+            // Use relative path instead of just the basename
+            $relativePath = str_replace(realpath($dirPath) . DIRECTORY_SEPARATOR, '', $filePath);
+            fwrite($checksumsFile, "$checksum *$relativePath\n");
         }
     }
 }
