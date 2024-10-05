@@ -60,19 +60,18 @@
 }
 
 #list,#overlay {
-    height: calc(100% - 56px)
+    height: calc(100% - 56px);
 }
 
 #list {
-    margin: 15px 0
+    margin: 40px 0
 }
 
 #media {
-    height:100%;
+    height: 100%;
 }
 
 #media img,#media video {
-    top: 56px;
     border: 1px solid #000;
     box-shadow: 0 0 9px 9px #000;
     outline: #124 solid 5px;
@@ -163,8 +162,6 @@ body {
 }
 
 html {
-    backface-visibility: hidden;
-    transform: translate3D(0,0,0);
     height:100%;
 }
 
