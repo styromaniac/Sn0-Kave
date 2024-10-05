@@ -1,13 +1,16 @@
 <?php
-// Ensure all errors are reported (for development purposes)
+// Production Environment Settings
+// Disable error display and enable error logging
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/error.log'); // Ensure this path is secure and not publicly accessible
 
 // Set default timezone to UTC
 date_default_timezone_set('UTC');
 
 /**
- * Function to write checksums for files in a directory
+ * Function to write checksums for files in a directory recursively
  *
  * @param string   $dirPath        Path to the directory to scan
  * @param resource $checksumsFile  File handle to write checksums to
@@ -19,54 +22,65 @@ function writeChecksums($dirPath, $checksumsFile) {
         throw new Exception("Directory does not exist or is not readable: $dirPath");
     }
 
-    // Scan the directory
-    $files = scandir($dirPath);
-    if ($files === false) {
-        throw new Exception("Failed to read directory: $dirPath");
-    }
+    // Use RecursiveIteratorIterator to traverse files
+    $files = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($dirPath, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
 
-    // Process each file in the directory
     foreach ($files as $file) {
-        // Skip '.' and '..' entries and hidden files
-        if ($file === '.' || $file === '..' || $file[0] === '.') {
-            continue;
-        }
-
-        $filePath = realpath($dirPath . DIRECTORY_SEPARATOR . $file);
-        if ($filePath === false) {
-            continue; // Skip if realpath fails
-        }
-
-        // Ensure the file is within the target directory to prevent directory traversal
-        if (strpos($filePath, realpath($dirPath)) !== 0) {
-            continue;
-        }
-
-        // Ensure it's a regular file and is readable
-        if (is_file($filePath) && is_readable($filePath)) {
-            $checksum = hash_file('sha3-512', $filePath);
-            if ($checksum === false) {
-                throw new Exception("Failed to hash file: $filePath");
+        if ($file->isFile() && $file->isReadable()) {
+            // Skip files starting with a period (hidden files)
+            if (basename($file->getFilename())[0] === '.') {
+                continue;
             }
-            // Use relative path instead of just the basename
-            $relativePath = str_replace(realpath($dirPath) . DIRECTORY_SEPARATOR, '', $filePath);
+
+            // Calculate the checksum
+            $checksum = hash_file('sha3-512', $file->getRealPath());
+            if ($checksum === false) {
+                throw new Exception("Failed to hash file: " . $file->getRealPath());
+            }
+
+            // Calculate relative path from current working directory
+            $relativePath = str_replace(getcwd() . DIRECTORY_SEPARATOR, '', $file->getRealPath());
+
+            // Write the checksum and the relative path to sn0.txt
             fwrite($checksumsFile, "$checksum *$relativePath\n");
         }
     }
 }
 
-$dirPaths = ['./OpenCamera'];
-$checksumsPath = './sn0.txt';
+try {
+    // Define absolute paths to directories
+    $dirPaths = [__DIR__ . '/OpenCamera', __DIR__ . '/dep']; // Adjust paths as necessary
+    $checksumsPath = '/storage/emulated/0/DCIM/sn0.txt'; // Absolute path to store checksums
 
-// Open the checksum file securely
-$checksumsFile = fopen($checksumsPath, 'wb');
-if ($checksumsFile) {
-    foreach ($dirPaths as $dirPath) {
-        writeChecksums($dirPath, $checksumsFile);
+    // Open sn0.txt for writing with write mode
+    $checksumsFile = fopen($checksumsPath, 'w');
+    if ($checksumsFile) {
+        // Iterate through each directory and write checksums
+        foreach ($dirPaths as $dirPath) {
+            $absoluteDirPath = realpath($dirPath);
+            if ($absoluteDirPath === false) {
+                throw new Exception("Invalid directory path: $dirPath");
+            }
+            writeChecksums($absoluteDirPath, $checksumsFile);
+        }
+        fclose($checksumsFile);
+
+        // Set permissions to allow read access for client software
+        chmod($checksumsPath, 0644); // Owner can read/write, others can read
+
+        // Log success message
+        error_log("sn0.txt successfully created and updated.");
+    } else {
+        throw new Exception("Error opening checksum file: $checksumsPath");
     }
-    fclose($checksumsFile);
-} else {
-    throw new Exception("Error opening checksum file: $checksumsPath");
+} catch (Exception $e) {
+    // Log the error and display a generic message to the user
+    error_log("[" . date("Y-m-d H:i:s") . "] " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine() . "\n", 3, __DIR__ . '/error.log');
+    echo "An error occurred while processing your request.";
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -84,6 +98,15 @@ if ($checksumsFile) {
     <meta name="msapplication-starturl" content="/">
     <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
 
+    <!-- Security Headers -->
+    <?php
+    // Set security headers before any output
+    header("Content-Security-Policy: default-src 'self'; script-src 'self' dep/plyr.js dep/Viewplayer.js dep/Fullscreen.js dep/Copyright.js dep/Lightbox.js dep/Layout.js; style-src 'self' dep/Kave.css dep/plyr.css; img-src 'self' dep/favicon.png dep/favicon.webp dep/zip-thumbnail.svg data:;");
+    header("X-Content-Type-Options: nosniff");
+    header("X-Frame-Options: SAMEORIGIN");
+    header("X-XSS-Protection: 1; mode=block");
+    ?>
+
     <link rel="stylesheet" type="text/css" href="dep/Kave.css">
     <link rel="icon" type="image/png" sizes="512x512" href="dep/favicon.png">
     <link rel="apple-touch-icon" type="image/png" sizes="512x512" href="dep/favicon.png">
@@ -99,53 +122,78 @@ if ($checksumsFile) {
         <div id="list">
             <span id="media">
                 <?php
-                $searchPath = 'OpenCamera/';
-                if (!is_dir($searchPath) || !is_readable($searchPath)) {
-                    throw new Exception("Directory does not exist or is not readable: $searchPath");
-                }
-
-                $files = scandir($searchPath);
-                if ($files === false) {
-                    throw new Exception("Failed to read directory: $searchPath");
-                }
-
-                foreach ($files as $file) {
-                    // Skip '.' and '..' entries and hidden files
-                    if ($file === '.' || $file === '..' || $file[0] === '.') {
-                        continue;
+                try {
+                    $searchPath = __DIR__ . '/OpenCamera/'; // Absolute path to prevent traversal
+                    if (!is_dir($searchPath) || !is_readable($searchPath)) {
+                        throw new Exception("Directory does not exist or is not readable: $searchPath");
                     }
 
-                    $filePath = realpath($searchPath . DIRECTORY_SEPARATOR . $file);
-                    if ($filePath === false) {
-                        continue; // Skip if realpath fails
+                    $files = scandir($searchPath);
+                    if ($files === false) {
+                        throw new Exception("Failed to read directory: $searchPath");
                     }
 
-                    // Ensure the file is within the target directory to prevent directory traversal
-                    if (strpos($filePath, realpath($searchPath)) !== 0) {
-                        continue;
-                    }
+                    foreach ($files as $file) {
+                        // Skip '.' and '..' entries and hidden files
+                        if ($file === '.' || $file === '..' || $file[0] === '.') {
+                            continue;
+                        }
 
-                    // Ensure it's a regular file and is readable
-                    if (is_file($filePath) && is_readable($filePath)) {
-                        $pathInfo = pathinfo($filePath);
-                        $extension = strtolower($pathInfo['extension']);
-                        $relativePath = htmlspecialchars($searchPath . basename($file), ENT_QUOTES, 'UTF-8');
+                        $filePath = realpath($searchPath . DIRECTORY_SEPARATOR . $file);
+                        if ($filePath === false) {
+                            continue; // Skip if realpath fails
+                        }
 
-                        switch ($extension) {
-                            case 'zip':
-                                echo "<img data-media='archive' type='image/svg+xml' src='dep/zip-thumbnail.svg' loading='lazy' alt='Zip Archive Thumbnail'>\n";
-                                break;
-                            case 'webp':
-                                echo "<img data-media='image' type='image/webp' src='$relativePath' loading='lazy' alt='Image'>\n";
-                                break;
-                            case 'mp4':
-                                echo "<video data-media='video' type='video/mp4' src='$relativePath' controls></video>\n";
-                                break;
-                            default:
-                                // Skip unsupported file types
-                                break;
+                        // Ensure the file is within the target directory to prevent directory traversal
+                        $realSearchPath = realpath($searchPath);
+                        if (strpos($filePath, $realSearchPath) !== 0) {
+                            continue;
+                        }
+
+                        // Ensure it's a regular file and is readable
+                        if (is_file($filePath) && is_readable($filePath)) {
+                            $pathInfo = pathinfo($filePath);
+                            $extension = isset($pathInfo['extension']) ? strtolower($pathInfo['extension']) : '';
+                            
+                            // Validate MIME type
+                            $mimeType = mime_content_type($filePath);
+                            $allowedMimeTypes = [
+                                'image/webp' => 'webp',
+                                'video/mp4' => 'mp4',
+                                'application/zip' => 'zip'
+                            ];
+
+                            if (!array_key_exists($mimeType, $allowedMimeTypes)) {
+                                continue; // Skip unsupported MIME types
+                            }
+
+                            // Ensure extension matches MIME type
+                            if ($extension !== $allowedMimeTypes[$mimeType]) {
+                                continue; // Mismatch between extension and MIME type
+                            }
+
+                            $relativePath = htmlspecialchars('OpenCamera/' . basename($file), ENT_QUOTES, 'UTF-8');
+
+                            switch ($extension) {
+                                case 'zip':
+                                    echo "<img data-media='archive' type='image/svg+xml' src='dep/zip-thumbnail.svg' loading='lazy' alt='Zip Archive Thumbnail'>\n";
+                                    break;
+                                case 'webp':
+                                    echo "<img data-media='image' type='image/webp' src='$relativePath' loading='lazy' alt='Image'>\n";
+                                    break;
+                                case 'mp4':
+                                    echo "<video data-media='video' type='video/mp4' src='$relativePath' controls></video>\n";
+                                    break;
+                                default:
+                                    // Skip unsupported file types
+                                    break;
+                            }
                         }
                     }
+                } catch (Exception $e) {
+                    // Log the error and display a generic message
+                    error_log("[" . date("Y-m-d H:i:s") . "] " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine() . "\n", 3, __DIR__ . '/error.log');
+                    echo "<p>An error occurred while loading media files.</p>";
                 }
                 ?>
             </span>
@@ -173,7 +221,7 @@ if ($checksumsFile) {
             </div>
             <div id="lightbox">
                 <div class="bar">
-                    <a oncontextmenu="toggleFullScreen()" onclick="closeLightbox(event)">
+                    <a href="#" oncontextmenu="toggleFullScreen()" onclick="closeLightbox(event)">
                         <span class="bat"></span>
                     </a>
                 </div>
@@ -184,7 +232,7 @@ if ($checksumsFile) {
         </div>
     </div>
     <div class="bar">
-        <a onclick="window.location.href=window.location.href" oncontextmenu="toggleFullScreen()">
+        <a href="#" onclick="window.location.reload()" oncontextmenu="toggleFullScreen()">
             <span class="bat"></span>
         </a>
     </div>
