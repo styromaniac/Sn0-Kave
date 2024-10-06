@@ -221,7 +221,7 @@ try {
             </div>
             <div id="lightbox">
                 <div class="bar">
-                    <a href="#" oncontextmenu="toggleFullScreen()" onclick="closeLightbox(event)">
+                    <a oncontextmenu="toggleFullScreen()" onclick="closeLightbox(event)">
                         <span class="bat"></span>
                     </a>
                 </div>
