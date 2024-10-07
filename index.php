@@ -198,10 +198,6 @@ try {
                 ?>
             </span>
             <br>
-            <span class="text">
-                <?php echo "Last synced: " . date("F d Y H:i:s") . " UTC."; ?>
-            </span>
-            <br>
             <div id="copyright">
                 <?php echo "Kave &copy; 2018-" . date("Y") . " Alex \"Styromaniac\" Goven"; ?>
                 <br>
@@ -232,7 +228,7 @@ try {
         </div>
     </div>
     <div class="bar">
-        <a href="#" onclick="window.location.reload()" oncontextmenu="toggleFullScreen()">
+        <a href="./" onclick="window.location.reload()" oncontextmenu="toggleFullScreen()">
             <span class="bat"></span>
         </a>
     </div>
