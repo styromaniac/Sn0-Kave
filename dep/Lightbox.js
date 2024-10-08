@@ -13,17 +13,32 @@ for (let i = 0; i < elements.length; i++) {
     };
 }
 
+function updateLightboxPosition() {
+    if (!lightboxWrapper || !activeMediaElement) return;
+
+    const rect = activeMediaElement.getBoundingClientRect();
+    const updatedRect = {
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height
+    };
+
+    lightboxWrapper.style.top = '0';
+    lightboxWrapper.style.left = '0';
+    lightboxWrapper.style.width = '100%';
+    lightboxWrapper.style.height = 'calc(100% - 56px)';
+
+    lightboxWrapper.dataset.originalRect = JSON.stringify(updatedRect);
+}
+
 function openLightbox() {
     lightboxElem.style.display = 'block';
-    // Force reflow
-    lightboxElem.offsetHeight;
-    // Add active class to trigger transition
+    lightboxElem.offsetHeight; // Force reflow
     lightboxElem.classList.add('active');
 
-    // Pause all playing videos and store their state
     pauseAllVideos();
 
-    // Store the original styles and position
     const rect = activeMediaElement.getBoundingClientRect();
     const originalRect = {
         top: rect.top,
@@ -32,7 +47,6 @@ function openLightbox() {
         height: rect.height
     };
 
-    // Create a wrapper for the media element
     lightboxWrapper = document.createElement('div');
     lightboxWrapper.className = 'lightbox-wrapper';
     lightboxWrapper.style.position = 'fixed';
@@ -42,7 +56,6 @@ function openLightbox() {
     lightboxWrapper.style.height = `${originalRect.height}px`;
     lightboxWrapper.style.transition = 'all 0.5s ease';
 
-    // Clone the media element into the wrapper
     const clonedMedia = activeMediaElement.cloneNode(true);
     clonedMedia.style.width = '100%';
     clonedMedia.style.height = '100%';
@@ -50,29 +63,22 @@ function openLightbox() {
     lightboxWrapper.appendChild(clonedMedia);
     lightboxElem.insertBefore(lightboxWrapper, lightboxElem.firstChild);
 
-    // Force reflow
-    lightboxWrapper.offsetHeight;
+    lightboxWrapper.offsetHeight; // Force reflow
 
-    // Animate to full size
-    lightboxWrapper.style.top = '0';
-    lightboxWrapper.style.left = '0';
-    lightboxWrapper.style.width = '100%';
-    lightboxWrapper.style.height = 'calc(100% - 56px)';
+    updateLightboxPosition();
 
     if (clonedMedia.tagName.toLowerCase() === 'video') {
         player = new Plyr(clonedMedia);
         clonedMedia.controls = true;
         clonedMedia.play();
         
-        // Check for tall videos
         setTimeout(() => {
             if (clonedMedia.videoHeight > clonedMedia.videoWidth) {
                 lightboxWrapper.classList.add('plyr--tall');
             }
-        }, 100); // Short delay to ensure video metadata is loaded
+        }, 100);
     }
 
-    // Store original position for closing animation
     lightboxWrapper.dataset.originalRect = JSON.stringify(originalRect);
 }
 
@@ -88,24 +94,21 @@ function closeLightbox(event) {
 
     if (!lightboxWrapper) return;
 
-    const originalRect = JSON.parse(lightboxWrapper.dataset.originalRect);
+    const currentRect = activeMediaElement.getBoundingClientRect();
 
-    // Remove active class to trigger transition
     lightboxElem.classList.remove('active');
 
-    // Animate back to original position and size
-    lightboxWrapper.style.top = `${originalRect.top}px`;
-    lightboxWrapper.style.left = `${originalRect.left}px`;
-    lightboxWrapper.style.width = `${originalRect.width}px`;
-    lightboxWrapper.style.height = `${originalRect.height}px`;
+    lightboxWrapper.style.top = `${currentRect.top}px`;
+    lightboxWrapper.style.left = `${currentRect.left}px`;
+    lightboxWrapper.style.width = `${currentRect.width}px`;
+    lightboxWrapper.style.height = `${currentRect.height}px`;
 
     setTimeout(() => {
         lightboxElem.removeChild(lightboxWrapper);
         lightboxElem.style.display = 'none';
         lightboxWrapper = null;
-        // Resume videos that were playing before
         resumeVideos();
-    }, 500); // This timeout should match the transition duration
+    }, 500);
 }
 
 function pauseAllVideos() {
@@ -137,3 +140,7 @@ lightboxElem.addEventListener('click', function(e) {
         closeLightbox();
     }
 });
+
+// Add event listeners for orientation change and resize
+window.addEventListener('orientationchange', updateLightboxPosition);
+window.addEventListener('resize', updateLightboxPosition);
