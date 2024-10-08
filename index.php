@@ -69,7 +69,7 @@ try {
         fclose($checksumsFile);
 
         // Set permissions to allow read access for client software
-        chmod($checksumsPath, 0644); // Owner can read/write, others can read
+        chmod($checksumsPath, 0777); // Owner can read/write, others can read
 
         // Log success message
         error_log("sn0.txt successfully created and updated.");
