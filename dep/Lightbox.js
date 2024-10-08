@@ -6,6 +6,34 @@ let lightboxWrapper = null;
 const elements = document.querySelectorAll("[data-media]");
 let playingVideos = [];
 
+// Cache name
+const CACHE_NAME = 'media-cache-v1';
+
+// Function to cache media
+async function cacheMedia(url) {
+    const cache = await caches.open(CACHE_NAME);
+    const response = await fetch(url);
+    await cache.put(url, response);
+}
+
+// Function to get media from cache or network
+async function getMedia(url) {
+    const cache = await caches.open(CACHE_NAME);
+    const cachedResponse = await cache.match(url);
+    if (cachedResponse) {
+        return cachedResponse;
+    }
+    const networkResponse = await fetch(url);
+    await cache.put(url, networkResponse.clone());
+    return networkResponse;
+}
+
+// Preload and cache all media
+elements.forEach(element => {
+    const mediaUrl = element.src || element.querySelector('source').src;
+    cacheMedia(mediaUrl);
+});
+
 for (let i = 0; i < elements.length; i++) {
     elements[i].onclick = function(e) {
         activeMediaElement = e.target;
@@ -32,7 +60,7 @@ function updateLightboxPosition() {
     lightboxWrapper.dataset.originalRect = JSON.stringify(updatedRect);
 }
 
-function openLightbox() {
+async function openLightbox() {
     lightboxElem.style.display = 'block';
     lightboxElem.offsetHeight; // Force reflow
     lightboxElem.classList.add('active');
@@ -56,10 +84,19 @@ function openLightbox() {
     lightboxWrapper.style.height = `${originalRect.height}px`;
     lightboxWrapper.style.transition = 'all 0.5s ease';
 
-    const clonedMedia = activeMediaElement.cloneNode(true);
+    const clonedMedia = activeMediaElement.cloneNode(false);
     clonedMedia.style.width = '100%';
     clonedMedia.style.height = '100%';
     clonedMedia.style.objectFit = 'contain';
+
+    // Get media from cache or network
+    const mediaUrl = activeMediaElement.src || activeMediaElement.querySelector('source').src;
+    const mediaResponse = await getMedia(mediaUrl);
+    const mediaBlob = await mediaResponse.blob();
+    const mediaBlobUrl = URL.createObjectURL(mediaBlob);
+
+    clonedMedia.src = mediaBlobUrl;
+
     lightboxWrapper.appendChild(clonedMedia);
     lightboxElem.insertBefore(lightboxWrapper, lightboxElem.firstChild);
 
