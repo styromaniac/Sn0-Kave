@@ -169,55 +169,74 @@ video::-webkit-media-controls-panel {
     background-image: linear-gradient(transparent,transparent)!important
 }
 
-#content {
-    height: 100%;
-    backdrop-filter: blur(9px)brightness(50%);
-}
-
 #lightbox {
     display: none;
-    width: 100%;
-    height: calc(100% - 56px);
+    position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+    z-index: 99998;
+}
+
+#lightbox.active {
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+#lightbox .bar {
     position: fixed;
-    text-align: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100000;
+}
+
+#lightbox .bat {
+    display: inline-block;
+}
+
+.lightbox-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 56px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 99999;
 }
 
-#content {
-    height: 100%;
-    transition: backdrop-filter 0.5s ease;
+.lightbox-wrapper img,
+.lightbox-wrapper video {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
-#content.blurred {
-    backdrop-filter: blur(9px) brightness(50%);
-}
-
-.lightbox-background {
+/* Ensure Plyr controls are always on top and full width */
+.plyr--video .plyr__controls {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(6px);
-    z-index: 9998;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-#lightbox img,#lightbox video {
-    width: auto!important;
-    height: auto!important;
-    max-width: 100%!important;
-    max-height: 100%!important;
-    outline: 0!important;
-    border: 0!important;
-    position: absolute;
-    top: 0;
-    right: 0;
     bottom: 0;
     left: 0;
-    margin: auto
+    right: 0;
+    width: 100%;
+    z-index: 100001;
+}
+
+/* Adjust video container */
+.plyr--video {
+    width: 100%;
+    height: 100%;
+}
+
+/* Adjust video positioning */
+.plyr--video video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
