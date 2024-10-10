@@ -45,7 +45,7 @@ function writeChecksums($dirPath, $checksumsFile) {
             $relativePath = str_replace(getcwd() . DIRECTORY_SEPARATOR, '', $file->getRealPath());
 
             // Write the checksum and the relative path to sn0.txt
-            fwrite($checksumsFile, "$checksum *$relativePath\n");
+            fwrite($checksumsFile, "$checksum $relativePath\n");
         }
     }
 }
