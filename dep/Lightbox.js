@@ -5,6 +5,7 @@ let activeMediaElement = null;
 let lightboxWrapper = null;
 const elements = document.querySelectorAll("[data-media]");
 let playingVideos = [];
+let isFullscreenTransition = false;
 
 // Cache name
 const CACHE_NAME = 'media-cache-v1';
@@ -47,7 +48,7 @@ function getCurrentScale() {
     return matrix.a; // This is the scale factor
 }
 
-function updateLightboxPosition() {
+function updateLightboxPosition(animate = true) {
     if (!lightboxWrapper || !activeMediaElement) return;
 
     const currentScale = getCurrentScale();
@@ -59,16 +60,12 @@ function updateLightboxPosition() {
         height: rect.height / currentScale
     };
 
-    lightboxWrapper.style.transition = 'none';
-    lightboxWrapper.style.top = `${updatedRect.top}px`;
-    lightboxWrapper.style.left = `${updatedRect.left}px`;
-    lightboxWrapper.style.width = `${updatedRect.width}px`;
-    lightboxWrapper.style.height = `${updatedRect.height}px`;
-    
-    // Force reflow
-    lightboxWrapper.offsetHeight;
-    
-    lightboxWrapper.style.transition = 'all 0.5s ease';
+    if (animate && !isFullscreenTransition) {
+        lightboxWrapper.style.transition = 'all 0.5s ease';
+    } else {
+        lightboxWrapper.style.transition = 'none';
+    }
+
     lightboxWrapper.style.top = '0';
     lightboxWrapper.style.left = '0';
     lightboxWrapper.style.width = '100%';
@@ -120,7 +117,7 @@ async function openLightbox() {
 
     lightboxWrapper.offsetHeight; // Force reflow
 
-    updateLightboxPosition();
+    updateLightboxPosition(true);
 
     if (clonedMedia.tagName.toLowerCase() === 'video') {
         player = new Plyr(clonedMedia);
@@ -198,5 +195,26 @@ lightboxElem.addEventListener('click', function(e) {
 });
 
 // Add event listeners for orientation change and resize
-window.addEventListener('orientationchange', updateLightboxPosition);
-window.addEventListener('resize', updateLightboxPosition);
+window.addEventListener('orientationchange', () => updateLightboxPosition(true));
+window.addEventListener('resize', () => updateLightboxPosition(true));
+
+// This function should be called from Fullscreen.js
+function handleFullscreenChange() {
+    isFullscreenTransition = true;
+    if (document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement) {
+        // Entered fullscreen
+        setPageScale(0.8);
+    } else {
+        // Exited fullscreen
+        setPageScale(originalScale);
+    }
+    if (lightboxWrapper) {
+        updateLightboxPosition(false);
+    }
+    setTimeout(() => {
+        isFullscreenTransition = false;
+    }, 100);
+}
