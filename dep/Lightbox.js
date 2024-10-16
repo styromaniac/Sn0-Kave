@@ -41,17 +41,34 @@ for (let i = 0; i < elements.length; i++) {
     };
 }
 
+function getCurrentScale() {
+    const transform = window.getComputedStyle(document.body).getPropertyValue('transform');
+    const matrix = new DOMMatrixReadOnly(transform);
+    return matrix.a; // This is the scale factor
+}
+
 function updateLightboxPosition() {
     if (!lightboxWrapper || !activeMediaElement) return;
 
+    const currentScale = getCurrentScale();
     const rect = activeMediaElement.getBoundingClientRect();
     const updatedRect = {
-        top: rect.top,
-        left: rect.left,
-        width: rect.width,
-        height: rect.height
+        top: rect.top / currentScale,
+        left: rect.left / currentScale,
+        width: rect.width / currentScale,
+        height: rect.height / currentScale
     };
 
+    lightboxWrapper.style.transition = 'none';
+    lightboxWrapper.style.top = `${updatedRect.top}px`;
+    lightboxWrapper.style.left = `${updatedRect.left}px`;
+    lightboxWrapper.style.width = `${updatedRect.width}px`;
+    lightboxWrapper.style.height = `${updatedRect.height}px`;
+    
+    // Force reflow
+    lightboxWrapper.offsetHeight;
+    
+    lightboxWrapper.style.transition = 'all 0.5s ease';
     lightboxWrapper.style.top = '0';
     lightboxWrapper.style.left = '0';
     lightboxWrapper.style.width = '100%';
@@ -67,12 +84,13 @@ async function openLightbox() {
 
     pauseAllVideos();
 
+    const currentScale = getCurrentScale();
     const rect = activeMediaElement.getBoundingClientRect();
     const originalRect = {
-        top: rect.top,
-        left: rect.left,
-        width: rect.width,
-        height: rect.height
+        top: rect.top / currentScale,
+        left: rect.left / currentScale,
+        width: rect.width / currentScale,
+        height: rect.height / currentScale
     };
 
     lightboxWrapper = document.createElement('div');
@@ -131,14 +149,15 @@ function closeLightbox(event) {
 
     if (!lightboxWrapper) return;
 
+    const currentScale = getCurrentScale();
     const currentRect = activeMediaElement.getBoundingClientRect();
 
     lightboxElem.classList.remove('active');
 
-    lightboxWrapper.style.top = `${currentRect.top}px`;
-    lightboxWrapper.style.left = `${currentRect.left}px`;
-    lightboxWrapper.style.width = `${currentRect.width}px`;
-    lightboxWrapper.style.height = `${currentRect.height}px`;
+    lightboxWrapper.style.top = `${currentRect.top / currentScale}px`;
+    lightboxWrapper.style.left = `${currentRect.left / currentScale}px`;
+    lightboxWrapper.style.width = `${currentRect.width / currentScale}px`;
+    lightboxWrapper.style.height = `${currentRect.height / currentScale}px`;
 
     setTimeout(() => {
         lightboxElem.removeChild(lightboxWrapper);
