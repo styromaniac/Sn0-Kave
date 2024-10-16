@@ -58,3 +58,7 @@ function handleFullscreenChange() {
         setPageScale(originalScale);
     }
 }
+
+document.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+});
